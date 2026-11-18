@@ -1,0 +1,72 @@
+[
+  {
+    "id": "source-code-management",
+    "name": "Source Code Management",
+    "color": "#E8524A"
+  },
+  {
+    "id": "database-automation",
+    "name": "Database Automation",
+    "color": "#1E88E5"
+  },
+  {
+    "id": "continuous-integration",
+    "name": "Continuous Integration",
+    "color": "#455A64"
+  },
+  {
+    "id": "testing",
+    "name": "Testing",
+    "color": "#A57CF0"
+  },
+  {
+    "id": "configuration",
+    "name": "Configuration",
+    "color": "#66BB6A"
+  },
+  {
+    "id": "deployment",
+    "name": "Deployment",
+    "color": "#A63D7B"
+  },
+  {
+    "id": "containers",
+    "name": "Containers",
+    "color": "#263238"
+  },
+  {
+    "id": "release-orchestration",
+    "name": "Release Orchestration",
+    "color": "#26A69A"
+  },
+  {
+    "id": "cloud",
+    "name": "Cloud",
+    "color": "#1A4E7A"
+  },
+  {
+    "id": "aiops",
+    "name": "AIOps",
+    "color": "#F2C14E"
+  },
+  {
+    "id": "analytics",
+    "name": "Analytics",
+    "color": "#78909C"
+  },
+  {
+    "id": "monitoring",
+    "name": "Monitoring",
+    "color": "#D9822B"
+  },
+  {
+    "id": "security",
+    "name": "Security",
+    "color": "#4FC3F7"
+  },
+  {
+    "id": "collaboration",
+    "name": "Collaboration",
+    "color": "#6A3FC8"
+  }
+]
