@@ -8,9 +8,9 @@
  */
 
 :root {
-  --concept: #00B0F0;
+  --concept: #1BA1E2;
   --concept-strong: #006EAF;
-  --usage: #92D050;
+  --usage: #97D077;
   --relation: #FFFF00;
   --attribute: #A6A6A6;
   --bg: #FFFFFF;
@@ -127,13 +127,15 @@ hr {
   color: #000000;
 }
 
+/* Same fill and outline as the concept boxes of the schema. */
 .triad__concept {
   padding: 6px 12px;
-  border: 1px solid #000000;
+  border: 1px solid var(--concept-strong);
   background: var(--concept);
 }
 
 .triad__concept--usage {
+  border-color: #36393D;
   background: var(--usage);
 }
 
