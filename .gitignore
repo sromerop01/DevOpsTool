@@ -1,0 +1,72 @@
+# .gitignore — Supletorio CI/CD · Herramientas DevOps
+# Sitio estático (HTML5, CSS, JS y JSON). Todo lo del proyecto se versiona:
+# data/, assets/, docs/ (incluidos el .drawio, el .svg y periodic-table.pdf), CLAUDE.md y .kiro/steering/.
+
+# --- Sistema operativo ---
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+# Linux
+*~
+.directory
+.Trash-*
+
+# --- Editores ---
+# VS Code: se ignora todo menos las extensiones recomendadas (por ejemplo, Live Server)
+.vscode/*
+!.vscode/extensions.json
+# JetBrains
+.idea/
+# Vim / Emacs
+*.swp
+*.swo
+\#*\#
+.#*
+
+# --- Asistentes de IA ---
+# Kiro: steering y specs se versionan; la configuración local (MCP, que puede llevar claves) no
+.kiro/settings/
+# Claude Code: configuración y notas locales
+.claude/settings.local.json
+CLAUDE.local.md
+
+# --- draw.io (copias de respaldo y temporales del editor de escritorio) ---
+*.bkp
+*.dtmp
+.$*
+
+# --- Herramientas que puedan usarse para optimizar logos o servir el sitio ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# --- Secretos ---
+.env
+.env.*
+
+# --- Temporales y registros ---
+*.log
+*.tmp
+*.temp
+tmp/
+temp/
+~$*
+
+# --- Entrega ---
+# El .zip para MinasLap se genera al final (tarjeta 12) y no va al repositorio
+*.zip
