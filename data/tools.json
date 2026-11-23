@@ -66,7 +66,7 @@
   {
     "id": "appdynamics",
     "name": "AppDynamics",
-    "logo": "assets/logos/appdynamics.svg",
+    "logo": "assets/logos/appdynamics.png",
     "description": "Application performance monitoring tool from Cisco that traces transactions and links performance to business metrics.",
     "pricingModel": "EN",
     "categoryId": "observability"
@@ -218,7 +218,7 @@
   {
     "id": "fitnesse",
     "name": "FitNesse",
-    "logo": "assets/logos/fitnesse.svg",
+    "logo": "assets/logos/fitnesse.png",
     "description": "Wiki-based acceptance testing tool where teams write tests as tables that run against the application.",
     "pricingModel": "OS",
     "categoryId": "testing-automation"
@@ -410,7 +410,7 @@
   {
     "id": "mailjet",
     "name": "Mailjet",
-    "logo": "assets/logos/mailjet.svg",
+    "logo": "assets/logos/mailjet.png",
     "description": "Cloud service for sending transactional and marketing emails through an API or SMTP.",
     "pricingModel": "FM",
     "categoryId": "cloud"
@@ -570,7 +570,7 @@
   {
     "id": "soapui",
     "name": "SoapUI",
-    "logo": "assets/logos/soapui.svg",
+    "logo": "assets/logos/soapui.png",
     "description": "Tool for functional testing of SOAP and REST web services. The commercial version is ReadyAPI.",
     "pricingModel": "OS",
     "categoryId": "testing-automation"
@@ -626,7 +626,7 @@
   {
     "id": "tricentis-tosca",
     "name": "Tricentis Tosca",
-    "logo": "assets/logos/tricentis-tosca.svg",
+    "logo": "assets/logos/tricentis-tosca.png",
     "description": "Model-based test automation tool for enterprise applications, with little scripting.",
     "pricingModel": "EN",
     "categoryId": "testing-automation"
@@ -682,7 +682,7 @@
   {
     "id": "zenoss",
     "name": "Zenoss",
-    "logo": "assets/logos/zenoss.svg",
+    "logo": "assets/logos/zenoss.png",
     "description": "Platform that monitors hybrid IT infrastructure and applications and correlates events.",
     "pricingModel": "EN",
     "categoryId": "observability"
