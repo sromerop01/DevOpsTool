@@ -69,3 +69,26 @@ The category was assigned by the tool's main function; the price comes from the 
 | Cypress | Test automation (part 2) | testing-automation | OS | Category from Digital.ai table; price from official site |
 | Prometheus | Continuous deployment and continuous delivery strategies (part 1) | observability | OS | Category from Digital.ai table; price from official site |
 | TeamCity | Continuous deployment and continuous delivery strategies (part 2) | ci-cd-orchestration | FM | Category from Digital.ai table; price from official site |
+
+## Logos
+
+Most logos come from Simple Icons (simpleicons.org, CC0) and Devicon (MIT). The ones below come from other sources.
+
+| Tool | File | Source | License |
+|---|---|---|---|
+| AppDynamics | `appdynamics.png` | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:App_Dynamics_logo.png), re-encoded | Public domain |
+| FitNesse | `fitnesse.png` | [unclebob/fitnesse](https://github.com/unclebob/fitnesse) repository | Project logo |
+| Karma | `karma.svg` | [Devicon](https://devicon.dev) | MIT |
+| Mailjet | `mailjet.png` | [Wikipedia](https://en.wikipedia.org/wiki/File:Mailjet-logo.png) | Public domain |
+| Nagios | `nagios.svg` | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Nagios_logo.svg) | Public domain |
+| Perfecto | `perfecto.svg` | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Logo-perfecto-reg.svg) | CC BY 4.0 |
+| Rocket (rkt) | `rocket.svg` | [rkt/rkt](https://github.com/rkt/rkt/tree/master/logos) repository | Project logo |
+| SoapUI | `soapui.png` | [SmartBear/soapui](https://github.com/SmartBear/soapui) repository | Project logo |
+| Tricentis Tosca | `tricentis-tosca.png` | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Tricentis_logo_200px.png) (Tricentis company logo) | Public domain |
+| Zabbix | `zabbix.svg` | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Zabbix_logo.svg) | Public domain |
+| Zenoss | `zenoss.png` | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Zenoss-logo.png) | CC BY-SA 4.0 |
+
+### Placeholders
+
+No free logo was found for these tools. Their file is a generated placeholder (the tool name in the color of its category) and should be replaced with the official logo:
+Iron.io (`iron-io.svg`), ITRS (`itrs.svg`), mabl (`mabl.svg`), Moogsoft (`moogsoft.svg`), TestNG (`testng.svg`), XL Impact (`xl-impact.svg`).
