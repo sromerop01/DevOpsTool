@@ -1,72 +1,107 @@
 [
   {
-    "id": "source-code-management",
-    "name": "Source Code Management",
-    "color": "#E8524A"
+    "id": "ai-tools",
+    "name": "AI Tools",
+    "color": "#B03BF4"
   },
   {
-    "id": "database-automation",
-    "name": "Database Automation",
-    "color": "#1E88E5"
+    "id": "ai-ml-analytics",
+    "name": "AI/ML & Analytics",
+    "color": "#667385"
   },
   {
-    "id": "continuous-integration",
-    "name": "Continuous Integration",
-    "color": "#455A64"
+    "id": "aiops-event-correlation",
+    "name": "AIOps & Event Correlation",
+    "color": "#AE79C6"
   },
   {
-    "id": "testing",
-    "name": "Testing",
-    "color": "#A57CF0"
+    "id": "artifact-management",
+    "name": "Artifact Management",
+    "color": "#232E40"
   },
   {
-    "id": "configuration",
-    "name": "Configuration",
-    "color": "#66BB6A"
+    "id": "ci-cd-orchestration",
+    "name": "CI/CD Orchestration",
+    "color": "#205AB7"
   },
   {
-    "id": "deployment",
-    "name": "Deployment",
-    "color": "#A63D7B"
+    "id": "configuration-automation",
+    "name": "Configuration Automation",
+    "color": "#502B99"
   },
   {
-    "id": "containers",
-    "name": "Containers",
-    "color": "#263238"
+    "id": "container-orchestration",
+    "name": "Container Orchestration",
+    "color": "#E8291A"
+  },
+  {
+    "id": "deployment-automation",
+    "name": "Deployment Automation",
+    "color": "#EEBA4F"
+  },
+  {
+    "id": "dev-portals",
+    "name": "Dev Portals / Developer Experience",
+    "color": "#384456"
+  },
+  {
+    "id": "infrastructure-as-code",
+    "name": "Infrastructure as Code",
+    "color": "#28504A"
+  },
+  {
+    "id": "observability",
+    "name": "Observability",
+    "color": "#3B7269"
+  },
+  {
+    "id": "planning-portfolio-management",
+    "name": "Planning and Portfolio Management",
+    "color": "#840032"
+  },
+  {
+    "id": "release-automation",
+    "name": "Release Automation",
+    "color": "#B6CC3A"
   },
   {
     "id": "release-orchestration",
     "name": "Release Orchestration",
-    "color": "#26A69A"
+    "color": "#1B998B"
+  },
+  {
+    "id": "runtime-security",
+    "name": "Runtime Security",
+    "color": "#F96115"
+  },
+  {
+    "id": "secrets-management",
+    "name": "Secrets Management",
+    "color": "#567A32"
+  },
+  {
+    "id": "security-testing",
+    "name": "Security Testing",
+    "color": "#649A3D"
+  },
+  {
+    "id": "service-management",
+    "name": "Service Management / ITSM",
+    "color": "#D81159"
+  },
+  {
+    "id": "source-control-management",
+    "name": "Source Control Management",
+    "color": "#F46197"
+  },
+  {
+    "id": "testing-automation",
+    "name": "Testing Automation",
+    "color": "#279FEA"
   },
   {
     "id": "cloud",
     "name": "Cloud",
-    "color": "#1A4E7A"
-  },
-  {
-    "id": "aiops",
-    "name": "AIOps",
-    "color": "#F2C14E"
-  },
-  {
-    "id": "analytics",
-    "name": "Analytics",
-    "color": "#78909C"
-  },
-  {
-    "id": "monitoring",
-    "name": "Monitoring",
-    "color": "#D9822B"
-  },
-  {
-    "id": "security",
-    "name": "Security",
-    "color": "#4FC3F7"
-  },
-  {
-    "id": "collaboration",
-    "name": "Collaboration",
-    "color": "#6A3FC8"
+    "color": "#8D6E63"
   }
 ]
