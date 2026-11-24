@@ -1,1 +1,62 @@
-[]
+[
+  {
+    "id": "strategic-planning-of-the-software-project",
+    "name": "Strategic planning of the software project",
+    "description": "Prepares the work of a software project by planning quality assurance in the Planning phase. The Software Quality Assurance Engineer produces the Software Quality Assurance Plan, using the Management competency.",
+    "image": "assets/essence/strategic-planning-of-the-software-project.jpg"
+  },
+  {
+    "id": "activity-based-conceptualization-of-software-quality",
+    "name": "Activity-based conceptualization of software quality",
+    "description": "Tracks the progress of the way of working by elaborating a conceptual activity in the Planning phase. The Software Quality Assurance Engineer produces the conceptualization of software quality, using the Management competency.",
+    "image": "assets/essence/activity-based-conceptualization-of-software-quality.jpg"
+  },
+  {
+    "id": "simulated-certification-of-software-quality",
+    "name": "Simulated certification of software quality",
+    "description": "Tracks the progress of the work by presenting a certification test in the Planning phase. The Software Quality Assurance Engineer produces a simulated certification test of software quality, using the Management competency.",
+    "image": "assets/essence/simulated-certification-of-software-quality.jpg"
+  },
+  {
+    "id": "simulated-design-of-the-software-system",
+    "name": "Simulated design of the software system",
+    "description": "Shapes the system in the Design phase by specifying the functionality of the software system. The Software Engineer produces the use cases and their textual specification from the requirements, using the Analysis competency.",
+    "image": "assets/essence/simulated-design-of-the-software-system.jpg"
+  },
+  {
+    "id": "automated-testing-of-the-software-system",
+    "name": "Automated testing of the software system",
+    "description": "Speeds up tests by executing automated tests and gaining immediate feedback on the system under test. A development team member works on the tests and the release, with the Testing and Stakeholder representation competencies.",
+    "image": "assets/essence/automated-testing-of-the-software-system.jpg"
+  },
+  {
+    "id": "test-driven-development-of-the-software-system",
+    "name": "Test-driven development of the software system",
+    "description": "Reduces development time by writing a failing test, writing the source code that passes it and refactoring that code. A development team member works on the tests and the source code, with the Testing and Development competencies.",
+    "image": "assets/essence/test-driven-development-of-the-software-system.jpg"
+  },
+  {
+    "id": "acceptance-test-driven-development-of-the-software-system",
+    "name": "Acceptance test-driven development of the software system",
+    "description": "Validates acceptance criteria by defining them, automating the acceptance tests and controlling their continuous integration and deployment. A quality assurance engineer works on the tests and the source code, using the Testing competency.",
+    "image": "assets/essence/acceptance-test-driven-development-of-the-software-system.jpg"
+  },
+  {
+    "id": "behavior-driven-development-of-the-software-system",
+    "name": "Behavior-driven development of the software system",
+    "description": "Ensures the behavior of the software system by defining scenarios, automating acceptance criteria and refining the scenarios. A development team member and a business analyst work on the tests and the source code, using Analysis and Development.",
+    "image": "assets/essence/behavior-driven-development-of-the-software-system.jpg"
+  },
+  {
+    "id": "model-based-development-of-software-systems",
+    "name": "Model-based development of software systems",
+    "description": "Tests the software system from models in the Generation, Execution and Evaluation phases: creates and validates test models, generates test cases and data, executes them, traces requirements and evaluates test verdicts. A software development engineer in test does the work.",
+    "image": "assets/essence/model-based-development-of-software-systems.jpg"
+  },
+  {
+    "id": "continuous-monitoring-of-the-endeavor",
+    "name": "Continuous monitoring of the endeavor",
+    "description": "Improves the process by tracking the progress of the work: checks the infrastructure automatically, analyzes performance metrics, triggers instant alerts and generates audit logs. A DevOps engineer works on these products, using the Management competency.",
+    "image": "assets/essence/continuous-monitoring-of-the-endeavor.jpg"
+  }
+]
