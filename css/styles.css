@@ -440,6 +440,17 @@ textarea.input {
   object-fit: contain;
 }
 
+/* A cell with a .record-table__logo and the name beside it. */
+.record-table__tool {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.record-table__tool .record-table__logo {
+  flex: none;
+}
+
 /* Essence diagram of a row: a 64 px wide thumbnail that keeps its proportion. */
 .record-table__diagram {
   display: block;
