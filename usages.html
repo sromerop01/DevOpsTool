@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Registered usages · DevOps tools and practices</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/styles.css">
+<script src="data/seed.js" defer></script>
+<script src="js/db.js" defer></script>
+</head>
+<body>
+<main class="page">
+  <header>
+    <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Pre-conceptual schema</a>
+    <p class="triad">
+      <span class="triad__concept triad__concept--usage">USAGE</span>
+    </p>
+    <h1>Registered usages</h1>
+  </header>
+
+  <div id="load-error" class="notice notice--error" role="alert"></div>
+
+  <div id="content">
+    <div class="empty-state" id="empty" hidden>
+      <p>No usages registered yet.</p>
+      <a href="register-usage.html">Register a usage</a>
+    </div>
+
+    <div id="records" hidden>
+      <form class="form filter" id="filter-form" role="search">
+        <div class="field">
+          <label class="field__label" for="filter-tool">Tool</label>
+          <select class="input" id="filter-tool">
+            <option value="">All tools</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field__label" for="filter-practice">Practice</label>
+          <select class="input" id="filter-practice">
+            <option value="">All practices</option>
+          </select>
+        </div>
+      </form>
+      <p class="list-count" id="count" aria-live="polite"></p>
+      <div id="groups"></div>
+      <p class="empty-state" id="no-match" hidden>No usages match these filters.</p>
+    </div>
+  </div>
+</main>
+<script>
+  // db.js is deferred, so it runs after this script: wait for it before using DB.
+  document.addEventListener('DOMContentLoaded', function () {
+    var LOAD_ERROR = 'Could not load the initial data. Keep the data and js folders next to ' +
+      'index.html and open the page again.';
+
+    var empty = document.getElementById('empty');
+    var records = document.getElementById('records');
+    var toolFilter = document.getElementById('filter-tool');
+    var practiceFilter = document.getElementById('filter-practice');
+    var count = document.getElementById('count');
+    var groups = document.getElementById('groups');
+    var noMatch = document.getElementById('no-match');
+
+    function compareNames(a, b) {
+      return a.localeCompare(b, 'en', { sensitivity: 'base' }) || a.localeCompare(b);
+    }
+
+    function element(tag, className, text) {
+      var node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text !== undefined) node.textContent = text;
+      return node;
+    }
+
+    function usages(n) {
+      return n + (n === 1 ? ' usage' : ' usages');
+    }
+
+    function lookup(collection) {
+      var map = {};
+      DB.getAll(collection).forEach(function (record) { map[record.id] = record; });
+      return map;
+    }
+
+    // The tools and practices that have a usage, by name.
+    function fillFilter(select, entries, idKey, nameKey) {
+      var seen = {};
+      var options = [];
+      entries.forEach(function (entry) {
+        var id = entry.usage[idKey];
+        if (seen[id]) return;
+        seen[id] = true;
+        options.push({ id: id, name: entry[nameKey] });
+      });
+      options.sort(function (a, b) { return compareNames(a.name, b.name); });
+      select.length = 1;
+      options.forEach(function (o) {
+        var option = element('option', '', o.name);
+        option.value = o.id;
+        select.appendChild(option);
+      });
+    }
+
+    function item(entry) {
+      var li = element('li', 'record-list__item');
+      li.dataset.toolId = entry.usage.toolId;
+      if (entry.tool) {
+        var logo = element('img', 'record-list__logo');
+        logo.src = entry.tool.logo;
+        logo.alt = '';
+        logo.width = 48;
+        logo.height = 48;
+        li.appendChild(logo);
+      }
+      var body = element('div', 'record-list__body');
+      body.appendChild(element('h3', 'record-list__name', entry.toolName));
+      body.appendChild(element('p', 'record-list__text', entry.usage.description));
+      li.appendChild(body);
+      return li;
+    }
+
+    // One section per practice (PRACTICE HAS USAGE), by practice name; inside it, by tool name.
+    function render() {
+      var tools = lookup('tools');
+      var practices = lookup('practices');
+      var entries = DB.getAll('usages').map(function (usage) {
+        var tool = tools[usage.toolId];
+        var practice = practices[usage.practiceId];
+        return {
+          usage: usage,
+          tool: tool,
+          toolName: tool ? tool.name : usage.toolId,
+          practiceName: practice ? practice.name : usage.practiceId
+        };
+      });
+      entries.sort(function (a, b) {
+        return compareNames(a.practiceName, b.practiceName) || compareNames(a.toolName, b.toolName);
+      });
+
+      empty.hidden = entries.length > 0;
+      records.hidden = entries.length === 0;
+      fillFilter(toolFilter, entries, 'toolId', 'toolName');
+      fillFilter(practiceFilter, entries, 'practiceId', 'practiceName');
+      groups.textContent = '';
+
+      var ul = null;
+      var current = null;
+      entries.forEach(function (entry, index) {
+        if (entry.usage.practiceId !== current) {
+          current = entry.usage.practiceId;
+          var title = element('h2', 'record-group__title', entry.practiceName);
+          title.id = 'practice-' + index;
+          ul = element('ul', 'record-list');
+          ul.setAttribute('role', 'list'); // list-style: none removes the list role in Safari
+          var section = element('section', 'record-group');
+          section.dataset.practiceId = current;
+          section.setAttribute('aria-labelledby', title.id);
+          section.appendChild(title);
+          section.appendChild(ul);
+          groups.appendChild(section);
+        }
+        ul.appendChild(item(entry));
+      });
+      applyFilters();
+    }
+
+    // Tool and practice together.
+    function applyFilters() {
+      var tool = toolFilter.value;
+      var practice = practiceFilter.value;
+      var total = 0;
+      var visible = 0;
+      Array.prototype.forEach.call(groups.querySelectorAll('.record-group'), function (group) {
+        var inGroup = 0;
+        var inPractice = !practice || group.dataset.practiceId === practice;
+        Array.prototype.forEach.call(group.querySelectorAll('.record-list__item'), function (li) {
+          var match = inPractice && (!tool || li.dataset.toolId === tool);
+          li.hidden = !match;
+          total++;
+          if (match) inGroup++;
+        });
+        group.hidden = inGroup === 0;
+        visible += inGroup;
+      });
+      noMatch.hidden = visible > 0 || total === 0;
+      count.textContent = visible === total
+        ? usages(total) + ' registered.'
+        : visible + ' of ' + usages(total) + ' match the filters.';
+    }
+
+    toolFilter.addEventListener('change', applyFilters);
+    practiceFilter.addEventListener('change', applyFilters);
+    document.getElementById('filter-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+    });
+
+    DB.ready.then(render, function () {
+      document.getElementById('content').remove();
+      document.getElementById('load-error').textContent = LOAD_ERROR;
+    });
+  });
+</script>
+</body>
+</html>
