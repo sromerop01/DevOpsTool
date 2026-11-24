@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Registered DevOps tools · DevOps tools and practices</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/styles.css">
+<script src="data/seed.js" defer></script>
+<script src="js/db.js" defer></script>
+</head>
+<body>
+<main class="page">
+  <header>
+    <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Pre-conceptual schema</a>
+    <p class="triad">
+      <span class="triad__concept">DEVOPS TOOL</span>
+    </p>
+    <h1>Registered DevOps tools</h1>
+  </header>
+
+  <div id="load-error" class="notice notice--error" role="alert"></div>
+
+  <div id="content">
+    <div class="empty-state" id="empty" hidden>
+      <p>No tools registered yet.</p>
+      <a href="register-tool.html">Register a tool</a>
+    </div>
+
+    <div id="records" hidden>
+      <form class="form filter" id="filter-form" role="search">
+        <div class="field">
+          <label class="field__label" for="filter-name">Filter by name</label>
+          <input class="input" id="filter-name" type="search" autocomplete="off">
+        </div>
+        <div class="field">
+          <label class="field__label" for="filter-category">Category</label>
+          <select class="input" id="filter-category">
+            <option value="">All categories</option>
+          </select>
+        </div>
+      </form>
+      <p class="list-count" id="count" aria-live="polite"></p>
+      <div id="groups"></div>
+      <p class="empty-state" id="no-match" hidden>No tools match these filters.</p>
+    </div>
+  </div>
+</main>
+<script>
+  // db.js is deferred, so it runs after this script: wait for it before using DB.
+  document.addEventListener('DOMContentLoaded', function () {
+    var LOAD_ERROR = 'Could not load the initial data. Keep the data and js folders next to ' +
+      'index.html and open the page again.';
+
+    var empty = document.getElementById('empty');
+    var records = document.getElementById('records');
+    var nameFilter = document.getElementById('filter-name');
+    var categoryFilter = document.getElementById('filter-category');
+    var count = document.getElementById('count');
+    var groups = document.getElementById('groups');
+    var noMatch = document.getElementById('no-match');
+
+    function byName(a, b) {
+      return a.name.localeCompare(b.name, 'en', { sensitivity: 'base' }) || a.name.localeCompare(b.name);
+    }
+
+    function pricingLabel(code) {
+      var model = DB.PRICING_MODELS.filter(function (m) { return m.code === code; })[0];
+      return model ? model.label : code;
+    }
+
+    function element(tag, className, text) {
+      var node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text !== undefined) node.textContent = text;
+      return node;
+    }
+
+    function tools(n) {
+      return n + (n === 1 ? ' tool' : ' tools');
+    }
+
+    function item(tool) {
+      var logo = element('img', 'record-list__logo');
+      logo.src = tool.logo;
+      logo.alt = '';
+      logo.width = 48;
+      logo.height = 48;
+
+      var body = element('div', 'record-list__body');
+      body.appendChild(element('h3', 'record-list__name', tool.name));
+      body.appendChild(element('p', 'record-list__meta', 'Pricing model: ' + pricingLabel(tool.pricingModel)));
+      body.appendChild(element('p', 'record-list__text', tool.description));
+
+      var li = element('li', 'record-list__item');
+      li.dataset.name = tool.name.toLowerCase();
+      li.appendChild(logo);
+      li.appendChild(body);
+      return li;
+    }
+
+    // One section per category (CATEGORY HAS DEVOPS TOOL), in the order of categories.json.
+    function render() {
+      var all = DB.getAll('tools').sort(byName);
+      var categories = DB.getAll('categories');
+      var byCategory = {};
+      all.forEach(function (tool) {
+        (byCategory[tool.categoryId] = byCategory[tool.categoryId] || []).push(tool);
+      });
+      // A category id that is not in categories.json still gets its section, after the others.
+      var known = {};
+      categories.forEach(function (category) { known[category.id] = true; });
+      Object.keys(byCategory).forEach(function (id) {
+        if (!known[id]) categories.push({ id: id, name: id, color: '' });
+      });
+
+      empty.hidden = all.length > 0;
+      records.hidden = all.length === 0;
+      groups.textContent = '';
+      categoryFilter.length = 1;
+
+      categories.forEach(function (category) {
+        var list = byCategory[category.id];
+        if (!list) return;
+
+        var option = element('option', '', category.name);
+        option.value = category.id;
+        categoryFilter.appendChild(option);
+
+        var title = element('h2', 'record-group__title');
+        title.id = 'category-' + category.id;
+        var badge = element('span', 'category-badge', category.name);
+        if (category.color) badge.style.setProperty('--badge-color', category.color);
+        title.appendChild(badge);
+
+        var ul = element('ul', 'record-list');
+        ul.setAttribute('role', 'list'); // list-style: none removes the list role in Safari
+        list.forEach(function (tool) { ul.appendChild(item(tool)); });
+
+        var section = element('section', 'record-group');
+        section.dataset.categoryId = category.id;
+        section.setAttribute('aria-labelledby', title.id);
+        section.appendChild(title);
+        section.appendChild(ul);
+        groups.appendChild(section);
+      });
+      applyFilters();
+    }
+
+    // Name (case-insensitive, while typing) and category together.
+    function applyFilters() {
+      var text = nameFilter.value.trim().toLowerCase();
+      var category = categoryFilter.value;
+      var total = 0;
+      var visible = 0;
+      Array.prototype.forEach.call(groups.querySelectorAll('.record-group'), function (group) {
+        var inGroup = 0;
+        var inCategory = !category || group.dataset.categoryId === category;
+        Array.prototype.forEach.call(group.querySelectorAll('.record-list__item'), function (li) {
+          var match = inCategory && li.dataset.name.indexOf(text) !== -1;
+          li.hidden = !match;
+          total++;
+          if (match) inGroup++;
+        });
+        group.hidden = inGroup === 0;
+        visible += inGroup;
+      });
+      noMatch.hidden = visible > 0 || total === 0;
+      count.textContent = visible === total
+        ? tools(total) + ' registered.'
+        : visible + ' of ' + tools(total) + ' match the filters.';
+    }
+
+    nameFilter.addEventListener('input', applyFilters);
+    categoryFilter.addEventListener('change', applyFilters);
+    document.getElementById('filter-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+    });
+
+    DB.ready.then(render, function () {
+      document.getElementById('content').remove();
+      document.getElementById('load-error').textContent = LOAD_ERROR;
+    });
+  });
+</script>
+</body>
+</html>

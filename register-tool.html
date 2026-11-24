@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Register DevOps tool · DevOps tools and practices</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/styles.css">
+<script src="data/seed.js" defer></script>
+<script src="js/db.js" defer></script>
+<script src="js/tool-form.js" defer></script>
+</head>
+<body>
+<main class="page">
+  <header>
+    <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Pre-conceptual schema</a>
+    <p class="triad">
+      <span class="triad__concept">DEVOPS ENGINEER</span>
+      <span class="triad__arrow" aria-hidden="true">→</span>
+      <span class="triad__relation">REGISTERS</span>
+      <span class="triad__arrow" aria-hidden="true">→</span>
+      <span class="triad__concept">DEVOPS TOOL</span>
+    </p>
+    <h1>Register a DevOps tool</h1>
+  </header>
+
+  <div id="load-error" class="notice notice--error" role="alert"></div>
+  <div id="saved" class="notice notice--success" role="status"></div>
+  <div id="tool-form"></div>
+</main>
+<script>
+  // db.js and tool-form.js are deferred, so they run after this script: wait for them.
+  document.addEventListener('DOMContentLoaded', function () {
+    var LOAD_ERROR = 'Could not load the initial data. Keep the data and js folders next to ' +
+      'index.html and open the page again.';
+    var container = document.getElementById('tool-form');
+    var saved = document.getElementById('saved');
+
+    DB.ready.then(function () {
+      // A new attempt clears the previous confirmation; a successful save sets it again.
+      // Capture phase: it must run before the form's own submit handler, which may already
+      // save (and call onSaved) before a bubbling listener would run.
+      container.addEventListener('submit', function () { saved.textContent = ''; }, true);
+      ToolForm.mount(container, {
+        mode: 'create',
+        onSaved: function (tool) {
+          saved.textContent = 'Tool saved: ' + tool.name + '.';
+        }
+      });
+    }, function () {
+      container.remove();
+      document.getElementById('load-error').textContent = LOAD_ERROR;
+    });
+  });
+</script>
+</body>
+</html>

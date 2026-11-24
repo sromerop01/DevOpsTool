@@ -1,94 +1,117 @@
 # Notes on the tools data
 
-Source of categories and prices: Digital.ai "DevSecOps Tools Periodic Table" (`docs/periodic-table.pdf`). Pricing codes: Os → OS, Fr → FR, Fm → FM, Pd → PA, En → EN.
-34 of the 86 tools appear in the table (category and price from there, except the 3 below whose cell has no price code); the other 52 are not in it.
+Source: the course slides. Each category slide shows its tools, most of them with their cell from the course's Periodic Table of DevOps Tools (pres05, slide 10): symbol, number and pricing code. The category of every tool is the category of the slide where it appears, using the 14 categories of the professor's pre-conceptual schema (pres05, slide 9).
 
-## Tools that are not in the Digital.ai table (52)
+- Pricing model: the code of the tool's cell (OS, FR, FM, PA, EN). Tools without a cell take it from their official site (open source → OS, free with no paid plans → FR, free with paid plans → FM, paid only → PA, custom enterprise sales → EN).
+- Not included: Shopify, Mailjet and Force.com (Salesforce). They only appear as SaaS/PaaS examples in the cloud service models figure (pres06 final part, slide 2), not as DevOps tools.
 
-The category was assigned by the tool's main function; the price comes from the official site (open source → OS, free with no paid plans → FR, free with paid plans → FM, paid only → PA, custom enterprise sales → EN).
+## Tools (97)
 
-| Tool | Presentation | Category | Pricing model | Source |
+| Tool | Presentation | Slide | Category | Cell | Pricing model | Pricing source |
+|---|---|---|---|---|---|---|
+| MicroFocus UFT | Test automation (part 2), pres05 | 11 | Testing | Mf 23 | EN | Cell of the table |
+| Sauce Labs | Test automation (part 2), pres05 | 11 | Testing | SL 24 | PA | Cell of the table |
+| Perfecto | Test automation (part 2), pres05 | 11 | Testing | Pe 25 | PA | Cell of the table |
+| SoapUI | Test automation (part 2), pres05 | 11 | Testing | Su 26 | FM | Cell of the table |
+| Karma | Test automation (part 2), pres05 | 11 | Testing | Ka 41 | FR | Cell of the table |
+| Tricentis Tosca | Test automation (part 2), pres05 | 11 | Testing | Tt 42 | FM | Cell of the table |
+| Jasmine | Test automation (part 2), pres05 | 11 | Testing | Ja 43 | OS | Cell of the table |
+| Locust.io | Test automation (part 2), pres05 | 11 | Testing | Lo 44 | OS | Cell of the table |
+| Mocha | Test automation (part 2), pres05 | 11 | Testing | Mc 59 | OS | Cell of the table |
+| Apache JMeter | Test automation (part 2), pres05 | 11 | Testing | Jm 60 | FR | Cell of the table |
+| TestNG | Test automation (part 2), pres05 | 11 | Testing | Tn 61 | FR | Cell of the table |
+| JUnit | Test automation (part 2), pres05 | 11 | Testing | Ju 62 | FR | Cell of the table |
+| FitNesse | Test automation (part 2), pres05 | 11 | Testing | Fn 77 | OS | Cell of the table |
+| Gatling | Test automation (part 2), pres05 | 11 | Testing | Ga 78 | OS | Cell of the table |
+| Selenium | Test automation (part 2), pres05 | 11 | Testing | Se 79 | FR | Cell of the table |
+| Cucumber | Test automation (part 2), pres05 | 11 | Testing | Cu 80 | FM | Cell of the table |
+| Cypress | Test automation (part 2), pres05 | 12 | Testing | — | OS | Official site |
+| Jest | Test automation (part 2), pres05 | 12 | Testing | — | OS | Official site |
+| mabl | Test automation (part 2), pres05 | 12 | Testing | — | EN | Official site |
+| Newman | Test automation (part 2), pres05 | 12 | Testing | — | OS | Official site |
+| Playwright | Test automation (part 2), pres05 | 12 | Testing | — | OS | Official site |
+| Postman | Test automation (part 2), pres05 | 12 | Testing | — | FM | Official site |
+| TestCafé | Test automation (part 2), pres05 | 12 | Testing | — | OS | Official site |
+| Zenoss | CD strategies (part 1), pres06 initial part | 7 | Monitoring | Zn 98 | EN | Cell of the table |
+| Nagios | CD strategies (part 1), pres06 initial part | 7 | Monitoring | Ni 99 | OS | Cell of the table |
+| Zabbix | CD strategies (part 1), pres06 initial part | 7 | Monitoring | Zb 100 | OS | Cell of the table |
+| Bugsnag | CD strategies (part 1), pres06 initial part | 8 | Monitoring | — | FM | Official site |
+| Sentry | CD strategies (part 1), pres06 initial part | 8 | Monitoring | — | FM | Official site |
+| ITRS | CD strategies (part 1), pres06 initial part | 9 | AIOps | It 2 | EN | Cell of the table |
+| Logstash | CD strategies (part 1), pres06 initial part | 9 | AIOps | Ls 10 | OS | Cell of the table |
+| Fluentd | CD strategies (part 1), pres06 initial part | 9 | AIOps | Fd 18 | OS | Cell of the table |
+| Splunk | CD strategies (part 1), pres06 initial part | 9 | AIOps | Sp 36 | EN | Cell of the table |
+| Sumo Logic | CD strategies (part 1), pres06 initial part | 9 | AIOps | Sl 54 | FM | Cell of the table |
+| Moogsoft | CD strategies (part 1), pres06 initial part | 9 | AIOps | Mg 72 | PA | Cell of the table |
+| Prometheus | CD strategies (part 1), pres06 initial part | 9 | AIOps | Ps 90 | OS | Cell of the table |
+| Dynatrace | CD strategies (part 1), pres06 initial part | 10 | Analytics | Dt 91 | FM | Cell of the table |
+| New Relic | CD strategies (part 1), pres06 initial part | 10 | Analytics | Nr 92 | FM | Cell of the table |
+| Kibana | CD strategies (part 1), pres06 initial part | 10 | Analytics | Ki 93 | OS | Cell of the table |
+| AppDynamics | CD strategies (part 1), pres06 initial part | 10 | Analytics | Ad 94 | FM | Cell of the table |
+| Elasticsearch | CD strategies (part 1), pres06 initial part | 10 | Analytics | El 95 | EN | Cell of the table |
+| XL Impact | CD strategies (part 1), pres06 initial part | 10 | Analytics | Xli 96 | EN | Cell of the table |
+| Datadog | CD strategies (part 1), pres06 initial part | 10 | Analytics | Dd 97 | EN | Cell of the table |
+| Amazon CloudWatch | CD strategies (part 1), pres06 initial part | 11 | Analytics | — | FM | Official site |
+| Grafana | CD strategies (part 1), pres06 initial part | 11 | Analytics | — | OS | Official site |
+| Apache OpenWhisk | CD strategies (part 2), pres06 final part | 3 | Cloud | Aw 6 | OS | Cell of the table |
+| Alibaba Cloud | CD strategies (part 2), pres06 final part | 3 | Cloud | Al 7 | PA | Cell of the table |
+| Cloud Foundry | CD strategies (part 2), pres06 final part | 3 | Cloud | Cy 8 | OS | Cell of the table |
+| Microsoft Azure | CD strategies (part 2), pres06 final part | 3 | Cloud | Az 9 | PA | Cell of the table |
+| Google Cloud Platform | CD strategies (part 2), pres06 final part | 3 | Cloud | Gc 15 | EN | Cell of the table |
+| Amazon Web Services | CD strategies (part 2), pres06 final part | 3 | Cloud | As 16 | FM | Cell of the table |
+| AWS Lambda | CD strategies (part 2), pres06 final part | 3 | Cloud | Ld 17 | PA | Cell of the table |
+| Azure Functions | CD strategies (part 2), pres06 final part | 3 | Cloud | Af 34 | PA | Cell of the table |
+| OpenShift | CD strategies (part 2), pres06 final part | 3 | Cloud | Op 35 | EN | Cell of the table |
+| IBM Cloud | CD strategies (part 2), pres06 final part | 3 | Cloud | Ic 53 | EN | Cell of the table |
+| OpenStack | CD strategies (part 2), pres06 final part | 3 | Cloud | Os 71 | OS | Cell of the table |
+| Iron.io | CD strategies (part 2), pres06 final part | 3 | Cloud | Ir 89 | PA | Cell of the table |
+| AWS CodeBuild | CD strategies (part 2), pres06 final part | 7 | Continuous Integration | Cb 21 | PA | Cell of the table |
+| Jenkins | CD strategies (part 2), pres06 final part | 7 | Continuous Integration | Jn 22 | OS | Cell of the table |
+| VSTS | CD strategies (part 2), pres06 final part | 7 | Continuous Integration | Vs 39 | FM | Cell of the table |
+| Bamboo | CD strategies (part 2), pres06 final part | 7 | Continuous Integration | Ba 40 | PA | Cell of the table |
+| TeamCity | CD strategies (part 2), pres06 final part | 7 | Continuous Integration | Tc 57 | FM | Cell of the table |
+| CircleCI | CD strategies (part 2), pres06 final part | 7 | Continuous Integration | Cr 58 | FM | Cell of the table |
+| CodeShip | CD strategies (part 2), pres06 final part | 7 | Continuous Integration | Cs 75 | FM | Cell of the table |
+| Travis CI | CD strategies (part 2), pres06 final part | 7 | Continuous Integration | Tr 76 | OS | Cell of the table |
+| Apache Maven | CD strategies (part 2), pres06 final part | 8 | Continuous Integration | — | OS | Official site |
+| Bitbucket Pipelines | CD strategies (part 2), pres06 final part | 8 | Continuous Integration | — | FM | Official site |
+| GitHub Actions | CD strategies (part 2), pres06 final part | 8 | Continuous Integration | — | FM | Official site |
+| GitLab CI/CD | CD strategies (part 2), pres06 final part | 8 | Continuous Integration | — | OS | Official site |
+| Gradle | CD strategies (part 2), pres06 final part | 8 | Continuous Integration | — | OS | Official site |
+| npm | CD strategies (part 2), pres06 final part | 8 | Continuous Integration | — | OS | Official site |
+| Yarn | CD strategies (part 2), pres06 final part | 8 | Continuous Integration | — | OS | Official site |
+| Helm | CD strategies (part 2), pres06 final part | 10 | Containers | Hm 13 | OS | Cell of the table |
+| Amazon ECS | CD strategies (part 2), pres06 final part | 10 | Containers | Ae 31 | PA | Cell of the table |
+| Google Kubernetes Engine (GKE) | CD strategies (part 2), pres06 final part | 10 | Containers | Gke 49 | PA | Cell of the table |
+| Rancher | CD strategies (part 2), pres06 final part | 10 | Containers | Ra 50 | OS | Cell of the table |
+| Codefresh | CD strategies (part 2), pres06 final part | 10 | Containers | Cf 67 | FM | Cell of the table |
+| Apache Mesos | CD strategies (part 2), pres06 final part | 10 | Containers | Ms 68 | OS | Cell of the table |
+| Azure Kubernetes Service (AKS) | CD strategies (part 2), pres06 final part | 10 | Containers | Aks 69 | PA | Cell of the table |
+| Kubernetes | CD strategies (part 2), pres06 final part | 10 | Containers | Ku 85 | OS | Cell of the table |
+| Rocket (rkt) | CD strategies (part 2), pres06 final part | 10 | Containers | Rk 86 | OS | Cell of the table |
+| Docker | CD strategies (part 2), pres06 final part | 10 | Containers | Dk 87 | OS | Cell of the table |
+| Docker Enterprise | CD strategies (part 2), pres06 final part | 10 | Containers | De 88 | EN | Cell of the table |
+| Vite | CD strategies (part 2), pres06 final part | 11 | Containers | — | OS | Official site |
+| webpack | CD strategies (part 2), pres06 final part | 11 | Containers | — | OS | Official site |
+| CFEngine | CD strategies (part 2), pres06 final part | 14 | Configuration | Ce 27 | OS | Cell of the table |
+| Puppet | CD strategies (part 2), pres06 final part | 14 | Configuration | Pu 28 | EN | Cell of the table |
+| Rudder | CD strategies (part 2), pres06 final part | 14 | Configuration | Ru 45 | OS | Cell of the table |
+| Chef | CD strategies (part 2), pres06 final part | 14 | Configuration | Ch 46 | EN | Cell of the table |
+| Terraform | CD strategies (part 2), pres06 final part | 14 | Configuration | Tf 63 | FR | Cell of the table |
+| Ansible | CD strategies (part 2), pres06 final part | 14 | Configuration | An 64 | OS | Cell of the table |
+| Packer | CD strategies (part 2), pres06 final part | 14 | Configuration | Pa 81 | OS | Cell of the table |
+| SaltStack | CD strategies (part 2), pres06 final part | 14 | Configuration | SL 82 | OS | Cell of the table |
+| AWS CloudFormation | CD strategies (part 2), pres06 final part | 15 | Configuration | — | FR | Official site |
+| JFrog Artifactory | CD strategies (part 2), pres06 final part | 15 | Configuration | — | FM | Official site |
+| Juju | CD strategies (part 2), pres06 final part | 15 | Configuration | — | OS | Official site |
+| Pulumi | CD strategies (part 2), pres06 final part | 15 | Configuration | — | OS | Official site |
+| uDeploy | CD strategies (part 2), pres06 final part | 15 | Configuration | — | EN | Official site |
+
+## Logo attribution
+
+These logos are published under Creative Commons licenses that require attribution. They are used without changes.
+
+| Tool | File | Author | Source | License |
 |---|---|---|---|---|
-| Alibaba Cloud | Continuous deployment and continuous delivery strategies (part 2) | cloud | PA | Category assigned by main function; price from official site |
-| Amazon CloudWatch | Continuous deployment and continuous delivery strategies (part 1) | observability | PA | Category assigned by main function; price from official site |
-| Amazon Web Services | Continuous deployment and continuous delivery strategies (part 2) | cloud | PA | Category assigned by main function; price from official site |
-| Apache Maven | Continuous deployment and continuous delivery strategies (part 2) | artifact-management | OS | Category assigned by main function; price from official site |
-| Apache Mesos | Continuous deployment and continuous delivery strategies (part 2) | container-orchestration | OS | Category assigned by main function; price from official site |
-| Apache OpenWhisk | Continuous deployment and continuous delivery strategies (part 2) | cloud | OS | Category assigned by main function; price from official site |
-| AWS CodeBuild | Continuous deployment and continuous delivery strategies (part 2) | ci-cd-orchestration | PA | Category assigned by main function; price from official site |
-| AWS Lambda | Continuous deployment and continuous delivery strategies (part 2) | cloud | PA | Category assigned by main function; price from official site |
-| Azure Functions | Continuous deployment and continuous delivery strategies (part 2) | cloud | PA | Category assigned by main function; price from official site |
-| Bitbucket Pipelines | Continuous deployment and continuous delivery strategies (part 2) | ci-cd-orchestration | FM | Category assigned by main function; price from official site |
-| Bugsnag | Continuous deployment and continuous delivery strategies (part 1) | observability | FM | Category assigned by main function; price from official site |
-| Cloud Foundry | Continuous deployment and continuous delivery strategies (part 2) | cloud | OS | Category assigned by main function; price from official site |
-| CodeShip | Continuous deployment and continuous delivery strategies (part 2) | ci-cd-orchestration | PA | Category assigned by main function; price from official site |
-| Docker Enterprise | Continuous deployment and continuous delivery strategies (part 2) | container-orchestration | EN | Category assigned by main function; price from official site |
-| FitNesse | Test automation (part 2) | testing-automation | OS | Category assigned by main function; price from official site |
-| Fluentd | Continuous deployment and continuous delivery strategies (part 1) | observability | OS | Category assigned by main function; price from official site |
-| Force.com | Continuous deployment and continuous delivery strategies (part 2) | cloud | PA | Category assigned by main function; price from official site |
-| Gatling | Test automation (part 2) | testing-automation | OS | Category assigned by main function; price from official site |
-| Google Cloud Platform | Continuous deployment and continuous delivery strategies (part 2) | cloud | PA | Category assigned by main function; price from official site |
-| Gradle | Continuous deployment and continuous delivery strategies (part 2) | artifact-management | OS | Category assigned by main function; price from official site |
-| IBM Cloud | Continuous deployment and continuous delivery strategies (part 2) | cloud | PA | Category assigned by main function; price from official site |
-| Iron.io | Continuous deployment and continuous delivery strategies (part 2) | cloud | PA | Category assigned by main function; price from official site |
-| ITRS | Continuous deployment and continuous delivery strategies (part 1) | observability | EN | Category assigned by main function; price from official site |
-| Jasmine | Test automation (part 2) | testing-automation | OS | Category assigned by main function; price from official site |
-| Jest | Test automation (part 2) | testing-automation | OS | Category assigned by main function; price from official site |
-| Karma | Test automation (part 2) | testing-automation | OS | Category assigned by main function; price from official site |
-| Locust.io | Test automation (part 2) | testing-automation | OS | Category assigned by main function; price from official site |
-| Logstash | Continuous deployment and continuous delivery strategies (part 1) | observability | OS | Category assigned by main function; price from official site |
-| mabl | Test automation (part 2) | testing-automation | PA | Category assigned by main function; price from official site |
-| Mailjet | Continuous deployment and continuous delivery strategies (part 2) | cloud | FM | Category assigned by main function; price from official site |
-| MicroFocus UFT | Test automation (part 2) | testing-automation | EN | Category assigned by main function; price from official site |
-| Microsoft Azure | Continuous deployment and continuous delivery strategies (part 2) | cloud | PA | Category assigned by main function; price from official site |
-| Mocha | Test automation (part 2) | testing-automation | OS | Category assigned by main function; price from official site |
-| Moogsoft | Continuous deployment and continuous delivery strategies (part 1) | aiops-event-correlation | EN | Category assigned by main function; price from official site |
-| Nagios | Continuous deployment and continuous delivery strategies (part 1) | observability | OS | Category assigned by main function; price from official site |
-| Newman | Test automation (part 2) | testing-automation | OS | Category assigned by main function; price from official site |
-| OpenStack | Continuous deployment and continuous delivery strategies (part 2) | cloud | OS | Category assigned by main function; price from official site |
-| Perfecto | Test automation (part 2) | testing-automation | EN | Category assigned by main function; price from official site |
-| Postman | Test automation (part 2) | testing-automation | FM | Category assigned by main function; price from official site |
-| Rancher | Continuous deployment and continuous delivery strategies (part 2) | container-orchestration | OS | Category assigned by main function; price from official site |
-| Rocket (rkt) | Continuous deployment and continuous delivery strategies (part 2) | container-orchestration | OS | Category assigned by main function; price from official site |
-| Shopify | Continuous deployment and continuous delivery strategies (part 2) | cloud | PA | Category assigned by main function; price from official site |
-| SoapUI | Test automation (part 2) | testing-automation | OS | Category assigned by main function; price from official site |
-| Sumo Logic | Continuous deployment and continuous delivery strategies (part 1) | observability | FM | Category assigned by main function; price from official site |
-| TestCafé | Test automation (part 2) | testing-automation | OS | Category assigned by main function; price from official site |
-| TestNG | Test automation (part 2) | testing-automation | OS | Category assigned by main function; price from official site |
-| Tricentis Tosca | Test automation (part 2) | testing-automation | EN | Category assigned by main function; price from official site |
-| Vite | Continuous deployment and continuous delivery strategies (part 2) | artifact-management | OS | Category assigned by main function; price from official site |
-| webpack | Continuous deployment and continuous delivery strategies (part 2) | artifact-management | OS | Category assigned by main function; price from official site |
-| XL Impact | Continuous deployment and continuous delivery strategies (part 1) | ai-ml-analytics | EN | Category assigned by main function; price from official site |
-| Zabbix | Continuous deployment and continuous delivery strategies (part 1) | observability | OS | Category assigned by main function; price from official site |
-| Zenoss | Continuous deployment and continuous delivery strategies (part 1) | observability | EN | Category assigned by main function; price from official site |
-
-## Tools in the table whose price comes from the official site (3)
-
-| Tool | Presentation | Category | Pricing model | Source |
-|---|---|---|---|---|
-| Cypress | Test automation (part 2) | testing-automation | OS | Category from Digital.ai table; price from official site |
-| Prometheus | Continuous deployment and continuous delivery strategies (part 1) | observability | OS | Category from Digital.ai table; price from official site |
-| TeamCity | Continuous deployment and continuous delivery strategies (part 2) | ci-cd-orchestration | FM | Category from Digital.ai table; price from official site |
-
-## Logos
-
-Most logos come from Simple Icons (simpleicons.org, CC0) and Devicon (MIT). The ones below come from other sources.
-
-| Tool | File | Source | License |
-|---|---|---|---|
-| AppDynamics | `appdynamics.png` | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:App_Dynamics_logo.png), re-encoded | Public domain |
-| FitNesse | `fitnesse.png` | [unclebob/fitnesse](https://github.com/unclebob/fitnesse) repository | Project logo |
-| Karma | `karma.svg` | [Devicon](https://devicon.dev) | MIT |
-| Mailjet | `mailjet.png` | [Wikipedia](https://en.wikipedia.org/wiki/File:Mailjet-logo.png) | Public domain |
-| Nagios | `nagios.svg` | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Nagios_logo.svg) | Public domain |
-| Perfecto | `perfecto.svg` | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Logo-perfecto-reg.svg) | CC BY 4.0 |
-| Rocket (rkt) | `rocket.svg` | [rkt/rkt](https://github.com/rkt/rkt/tree/master/logos) repository | Project logo |
-| SoapUI | `soapui.png` | [SmartBear/soapui](https://github.com/SmartBear/soapui) repository | Project logo |
-| Tricentis Tosca | `tricentis-tosca.png` | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Tricentis_logo_200px.png) (Tricentis company logo) | Public domain |
-| Zabbix | `zabbix.svg` | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Zabbix_logo.svg) | Public domain |
-| Zenoss | `zenoss.png` | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Zenoss-logo.png) | CC BY-SA 4.0 |
-
-### Placeholders
-
-No free logo was found for these tools. Their file is a generated placeholder (the tool name in the color of its category) and should be replaced with the official logo:
-Iron.io (`iron-io.svg`), ITRS (`itrs.svg`), mabl (`mabl.svg`), Moogsoft (`moogsoft.svg`), TestNG (`testng.svg`), XL Impact (`xl-impact.svg`).
+| Perfecto | `assets/logos/perfecto.svg` | HaileyPerforce | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Logo-perfecto-reg.svg) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| Zenoss | `assets/logos/zenoss.png` | UsernameStela | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Zenoss-logo.png) | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |

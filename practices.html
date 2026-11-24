@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Registered practices · DevOps tools and practices</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/styles.css">
+<script src="data/seed.js" defer></script>
+<script src="js/db.js" defer></script>
+</head>
+<body>
+<main class="page">
+  <header>
+    <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Pre-conceptual schema</a>
+    <p class="triad">
+      <span class="triad__concept">PRACTICE</span>
+    </p>
+    <h1>Registered practices</h1>
+  </header>
+
+  <div id="load-error" class="notice notice--error" role="alert"></div>
+
+  <div id="content">
+    <div class="empty-state" id="empty" hidden>
+      <p>No practices registered yet.</p>
+      <a href="register-practice.html">Register a practice</a>
+    </div>
+
+    <div id="records" hidden>
+      <form class="form filter" id="filter-form" role="search">
+        <div class="field">
+          <label class="field__label" for="filter-name">Filter by name</label>
+          <input class="input" id="filter-name" type="search" autocomplete="off">
+        </div>
+      </form>
+      <p class="list-count" id="count" aria-live="polite"></p>
+      <ul class="record-list" id="items" role="list"></ul>
+      <p class="empty-state" id="no-match" hidden>No practices match this filter.</p>
+    </div>
+  </div>
+</main>
+<script>
+  // db.js is deferred, so it runs after this script: wait for it before using DB.
+  document.addEventListener('DOMContentLoaded', function () {
+    var LOAD_ERROR = 'Could not load the initial data. Keep the data and js folders next to ' +
+      'index.html and open the page again.';
+
+    var empty = document.getElementById('empty');
+    var records = document.getElementById('records');
+    var nameFilter = document.getElementById('filter-name');
+    var count = document.getElementById('count');
+    var items = document.getElementById('items');
+    var noMatch = document.getElementById('no-match');
+
+    function byName(a, b) {
+      return a.name.localeCompare(b.name, 'en', { sensitivity: 'base' }) || a.name.localeCompare(b.name);
+    }
+
+    function element(tag, className, text) {
+      var node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text !== undefined) node.textContent = text;
+      return node;
+    }
+
+    function practices(n) {
+      return n + (n === 1 ? ' practice' : ' practices');
+    }
+
+    // Name, description and Essence diagram (PRACTICE HAS NAME, DESCRIPTION and IMAGE).
+    function item(practice) {
+      var body = element('div', 'record-list__body');
+      body.appendChild(element('h2', 'record-list__name', practice.name));
+      body.appendChild(element('p', 'record-list__text', practice.description));
+
+      var diagram = element('img', 'record-list__diagram');
+      diagram.src = practice.image;
+      diagram.alt = 'Essence diagram of ' + practice.name;
+      diagram.loading = 'lazy';
+      body.appendChild(diagram);
+
+      var li = element('li', 'record-list__item');
+      li.dataset.name = practice.name.toLowerCase();
+      li.appendChild(body);
+      return li;
+    }
+
+    function render() {
+      var all = DB.getAll('practices').sort(byName);
+      empty.hidden = all.length > 0;
+      records.hidden = all.length === 0;
+      items.textContent = '';
+      all.forEach(function (practice) { items.appendChild(item(practice)); });
+      applyFilter();
+    }
+
+    // Case-insensitive, while typing.
+    function applyFilter() {
+      var text = nameFilter.value.trim().toLowerCase();
+      var total = items.children.length;
+      var visible = 0;
+      Array.prototype.forEach.call(items.children, function (li) {
+        var match = li.dataset.name.indexOf(text) !== -1;
+        li.hidden = !match;
+        if (match) visible++;
+      });
+      items.hidden = visible === 0;
+      noMatch.hidden = visible > 0 || total === 0;
+      count.textContent = visible === total
+        ? practices(total) + ' registered.'
+        : visible + ' of ' + practices(total) + ' match the filter.';
+    }
+
+    nameFilter.addEventListener('input', applyFilter);
+    document.getElementById('filter-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+    });
+
+    DB.ready.then(render, function () {
+      document.getElementById('content').remove();
+      document.getElementById('load-error').textContent = LOAD_ERROR;
+    });
+  });
+</script>
+</body>
+</html>

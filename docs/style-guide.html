@@ -101,6 +101,27 @@
         <p class="field__error" id="tool-category-error"></p>
       </div>
 
+      <!-- Usage form: the chosen tool's logo (.choice-logo) and practice's diagram (.choice-thumbnail) go under their select. -->
+      <div class="field">
+        <label class="field__label" for="usage-tool">DevOps tool</label>
+        <select class="input" id="usage-tool" aria-describedby="usage-tool-error">
+          <option value="">Select a DevOps tool</option>
+          <option value="selenium" selected>Selenium</option>
+        </select>
+        <p class="field__error" id="usage-tool-error"></p>
+        <img class="choice-logo" src="../assets/logos/selenium.svg" alt="Selenium logo" width="48" height="48">
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="usage-practice">Practice</label>
+        <select class="input" id="usage-practice" aria-describedby="usage-practice-error">
+          <option value="">Select a practice</option>
+          <option value="automated-testing-of-the-software-system" selected>Automated testing of the software system</option>
+        </select>
+        <p class="field__error" id="usage-practice-error"></p>
+        <img class="choice-thumbnail" src="../assets/essence/automated-testing-of-the-software-system.jpg" alt="Automated testing of the software system Essence diagram" width="160">
+      </div>
+
       <div class="field">
         <label class="field__label" for="tool-logo">Logo</label>
         <p class="field__hint" id="tool-logo-hint">The image is saved at 128 × 128 px.</p>
@@ -137,11 +158,19 @@
 
   <section aria-labelledby="table-title">
     <h2 id="table-title">Record table</h2>
+    <!-- method="dialog" keeps this example from submitting, since the guide has no JavaScript. -->
+    <form class="form filter" method="dialog" role="search">
+      <div class="field">
+        <label class="field__label" for="filter">Filter by name</label>
+        <input class="input" id="filter" type="search" autocomplete="off">
+      </div>
+    </form>
     <div class="table-scroll">
       <table class="record-table">
         <caption class="visually-hidden">Registered DevOps tools</caption>
         <thead>
           <tr>
+            <th scope="col">Logo</th>
             <th scope="col">Name</th>
             <th scope="col">Category</th>
             <th scope="col">Pricing model</th>
@@ -151,18 +180,21 @@
         <tbody>
           <!-- The pages set --badge-color from the category's color in DB.getAll("categories"). -->
           <tr>
+            <td><img class="record-table__logo" src="../assets/logos/selenium.svg" alt="" width="32" height="32"></td>
             <th scope="row">Selenium</th>
             <td><span class="category-badge" style="--badge-color: #A57CF0">Testing</span></td>
             <td>Open source</td>
             <td><button class="btn btn--secondary" type="button" aria-label="Edit Selenium">Edit</button></td>
           </tr>
           <tr>
+            <td><img class="record-table__logo" src="../assets/logos/jenkins.svg" alt="" width="32" height="32"></td>
             <th scope="row">Jenkins</th>
             <td><span class="category-badge" style="--badge-color: #455A64">Continuous Integration</span></td>
             <td>Open source</td>
             <td><button class="btn btn--secondary" type="button" aria-label="Edit Jenkins">Edit</button></td>
           </tr>
           <tr>
+            <td><img class="record-table__logo" src="../assets/logos/docker.svg" alt="" width="32" height="32"></td>
             <th scope="row">Docker</th>
             <td><span class="category-badge" style="--badge-color: #263238">Containers</span></td>
             <td>Freemium</td>
@@ -170,6 +202,92 @@
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <!-- Practices: a 64 px wide thumbnail of the Essence diagram (.record-table__diagram). -->
+    <div class="table-scroll">
+      <table class="record-table">
+        <caption class="visually-hidden">Registered practices</caption>
+        <thead>
+          <tr>
+            <th scope="col">Diagram</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col"><span class="visually-hidden">Actions</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><img class="record-table__diagram" src="../assets/essence/test-driven-development-of-the-software-system.jpg" alt="" width="64"></td>
+            <th scope="row">Test-driven development of the software system</th>
+            <td>Reduces development time by writing a failing test, writing the source code that…</td>
+            <td><button class="btn btn--secondary" type="button" aria-label="Edit Test-driven development of the software system">Edit</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Usages: the tool's logo and name in one cell (.record-table__tool). -->
+    <div class="table-scroll">
+      <table class="record-table">
+        <caption class="visually-hidden">Registered usages</caption>
+        <thead>
+          <tr>
+            <th scope="col">Tool</th>
+            <th scope="col">Practice</th>
+            <th scope="col">Description</th>
+            <th scope="col"><span class="visually-hidden">Actions</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"><span class="record-table__tool"><img class="record-table__logo" src="../assets/logos/selenium.svg" alt="" width="32" height="32">Selenium</span></th>
+            <td>Automated testing of the software system</td>
+            <td>Selenium lets the team automate browser tests that run in every pipeline, so…</td>
+            <td><button class="btn btn--secondary" type="button" aria-label="Edit usage of Selenium in Automated testing of the software system">Edit</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr>
+
+  <section aria-labelledby="list-title">
+    <h2 id="list-title">Record list</h2>
+
+    <header>
+      <a class="back-link" href="../index.html"><span aria-hidden="true">←</span> Pre-conceptual schema</a>
+      <p class="triad">
+        <span class="triad__concept">DEVOPS TOOL</span>
+      </p>
+      <h1>Registered DevOps tools</h1>
+    </header>
+
+    <p class="list-count">2 tools registered.</p>
+    <div>
+      <!-- The pages set --badge-color from the category's color in DB.getAll("categories"). -->
+      <section class="record-group" aria-labelledby="group-testing">
+        <h3 class="record-group__title" id="group-testing"><span class="category-badge" style="--badge-color: #A57CF0">Testing</span></h3>
+        <ul class="record-list" role="list">
+          <li class="record-list__item">
+            <img class="record-list__logo" src="../assets/logos/cypress.svg" alt="" width="48" height="48">
+            <div class="record-list__body">
+              <h4 class="record-list__name">Cypress</h4>
+              <p class="record-list__meta">Pricing model: Open source</p>
+              <p class="record-list__text">JavaScript framework for end-to-end and component tests of web apps, run in the browser.</p>
+            </div>
+          </li>
+          <li class="record-list__item">
+            <img class="record-list__logo" src="../assets/logos/selenium.svg" alt="" width="48" height="48">
+            <div class="record-list__body">
+              <h4 class="record-list__name">Selenium</h4>
+              <p class="record-list__meta">Pricing model: Free</p>
+              <p class="record-list__text">Open-source framework that automates web browsers for testing.</p>
+            </div>
+          </li>
+        </ul>
+      </section>
     </div>
   </section>
 </main>

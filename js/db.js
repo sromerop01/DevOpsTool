@@ -8,6 +8,12 @@
  *   devops.practices  <- data/practices.json   { id, name, description, image }
  *   devops.usages     <- data/usages.json      { id, toolId, practiceId, description }
  *
+ * The browser reads that initial data from data/seed.js (window.DB_SEED), generated from the
+ * JSON files with node .github/scripts/build-seed.js. Each page loads seed.js before this file.
+ * A script also loads when index.html is opened with a double click (file://), fetch does not.
+ * When the initial data changes (window.DB_SEED_VERSION), the new initial records are added to
+ * the stored ones, keeping everything the user registered or edited.
+ *
  * Pages never read or write localStorage directly: they wait for DB.ready and use window.DB.
  * Form rules (empty fields, repeated names) are validated by each page, not here.
  */
@@ -21,11 +27,7 @@
     usages: { key: 'devops.usages', prefix: 'usage-' }
   };
   var NAMES = Object.keys(COLLECTIONS);
-
-  // data/ sits next to js/, so resolve it from this script's URL instead of the page's.
-  var DATA_URL = document.currentScript
-    ? new URL('../data/', document.currentScript.src)
-    : new URL('data/', location.href);
+  var VERSION_KEY = 'devops.seedVersion';
 
   function spec(collection) {
     if (!Object.prototype.hasOwnProperty.call(COLLECTIONS, collection)) {
@@ -59,26 +61,46 @@
     localStorage.setItem(spec(collection).key, JSON.stringify(records));
   }
 
-  function fetchInitial(collection) {
-    var file = 'data/' + collection + '.json';
-    return fetch(new URL(collection + '.json', DATA_URL), { cache: 'no-cache' })
-      .then(function (response) {
-        if (!response.ok) throw new Error('DB: ' + file + ' answered HTTP ' + response.status + '.');
-        return response.json();
-      })
-      .then(function (records) {
-        if (!Array.isArray(records)) throw new Error('DB: ' + file + ' must contain a JSON array.');
-        return records;
-      });
+  // A copy of the initial records of a collection, taken from data/seed.js.
+  function initialRecords(collection) {
+    var seed = window.DB_SEED;
+    var records = seed && seed[collection];
+    if (!Array.isArray(records)) {
+      throw new Error('DB: data/seed.js has no initial "' + collection + '". ' +
+        'Check that data/seed.js is loaded before js/db.js.');
+    }
+    return JSON.parse(JSON.stringify(records));
   }
 
-  // Fetches every file before writing, so a failed load never leaves storage half replaced.
+  // Reads every collection before writing, so a failed load never leaves storage half replaced.
   function loadInitial(collections) {
-    return Promise.all(collections.map(fetchInitial)).then(function (results) {
+    return new Promise(function (resolve) {
+      var results = collections.map(initialRecords);
       collections.forEach(function (collection, i) {
         write(collection, results[i]);
       });
+      resolve();
     });
+  }
+
+  function usagePair(usage) {
+    return usage.toolId + '|' + usage.practiceId;
+  }
+
+  // Adds the initial records that storage does not have (by id). Stored records win, so user
+  // edits are kept; a usage is skipped if its tool already has one in that practice.
+  function addMissingInitial(collection) {
+    var records = read(collection);
+    var ids = {};
+    var pairs = {};
+    records.forEach(function (record) {
+      ids[record.id] = true;
+      if (collection === 'usages') pairs[usagePair(record)] = true;
+    });
+    var missing = initialRecords(collection).filter(function (record) {
+      return !ids[record.id] && !(collection === 'usages' && pairs[usagePair(record)]);
+    });
+    if (missing.length > 0) write(collection, records.concat(missing));
   }
 
   function indexOfId(records, id) {
@@ -101,11 +123,18 @@
     return record.id !== undefined && record.id !== null && record.id !== '';
   }
 
-  // Resolves once the four keys exist, loading from data/ only the ones that are missing or invalid.
+  // Resolves once the four keys exist, loading from data/seed.js only the ones that are missing or
+  // invalid. If the initial data changed since the last visit, its new records are added too.
   var ready = new Promise(function (resolve) {
     resolve(loadInitial(NAMES.filter(function (collection) {
       return readStored(collection) === null;
-    })));
+    })).then(function () {
+      var version = window.DB_SEED_VERSION;
+      if (window.DB_SEED && version && localStorage.getItem(VERSION_KEY) !== version) {
+        NAMES.forEach(addMissingInitial);
+        localStorage.setItem(VERSION_KEY, version);
+      }
+    }));
   });
   // Each page decides how to report a failed load; this only avoids an "Uncaught (in promise)".
   ready.catch(function () {});
@@ -174,9 +203,11 @@
       setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
     },
 
-    // Replaces the four keys with the content of data/. If a file can't be loaded, nothing changes.
+    // Replaces the four keys with the initial data. If it can't be read, nothing changes.
     reset: function () {
-      return loadInitial(NAMES);
+      return loadInitial(NAMES).then(function () {
+        if (window.DB_SEED_VERSION) localStorage.setItem(VERSION_KEY, window.DB_SEED_VERSION);
+      });
     }
   };
 })();
