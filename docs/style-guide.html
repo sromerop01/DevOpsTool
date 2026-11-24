@@ -101,6 +101,27 @@
         <p class="field__error" id="tool-category-error"></p>
       </div>
 
+      <!-- Usage form: the chosen tool's logo (.choice-logo) and practice's diagram (.choice-thumbnail) go under their select. -->
+      <div class="field">
+        <label class="field__label" for="usage-tool">DevOps tool</label>
+        <select class="input" id="usage-tool" aria-describedby="usage-tool-error">
+          <option value="">Select a DevOps tool</option>
+          <option value="selenium" selected>Selenium</option>
+        </select>
+        <p class="field__error" id="usage-tool-error"></p>
+        <img class="choice-logo" src="../assets/logos/selenium.svg" alt="Selenium logo" width="48" height="48">
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="usage-practice">Practice</label>
+        <select class="input" id="usage-practice" aria-describedby="usage-practice-error">
+          <option value="">Select a practice</option>
+          <option value="automated-testing-of-the-software-system" selected>Automated testing of the software system</option>
+        </select>
+        <p class="field__error" id="usage-practice-error"></p>
+        <img class="choice-thumbnail" src="../assets/essence/automated-testing-of-the-software-system.jpg" alt="Automated testing of the software system Essence diagram" width="160">
+      </div>
+
       <div class="field">
         <label class="field__label" for="tool-logo">Logo</label>
         <p class="field__hint" id="tool-logo-hint">The image is saved at 128 × 128 px.</p>
