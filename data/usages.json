@@ -1,1 +1,188 @@
-[]
+[
+  {
+    "id": "xl-impact-in-strategic-planning-of-the-software-project",
+    "toolId": "xl-impact",
+    "practiceId": "strategic-planning-of-the-software-project",
+    "description": "In \"Plan quality assurance\", XL Impact gives the quality assurance engineer value stream data from past releases: lead time, failed deployments and escaped defects. The Software Quality Assurance Plan sets its targets from that shared evidence instead of guesses, and development, testing and operations agree on the same goals from day one."
+  },
+  {
+    "id": "github-actions-in-strategic-planning-of-the-software-project",
+    "toolId": "github-actions",
+    "practiceId": "strategic-planning-of-the-software-project",
+    "description": "The quality gates of the Software Quality Assurance Plan are written as GitHub Actions workflows and required checks on pull requests. The plan stops being a document that nobody reads: it lives in the repository, it is reviewed like code and it runs on every change, so the whole team shares responsibility for quality."
+  },
+  {
+    "id": "terraform-in-strategic-planning-of-the-software-project",
+    "toolId": "terraform",
+    "practiceId": "strategic-planning-of-the-software-project",
+    "description": "While preparing to do the work, the test environments that the plan needs are declared with Terraform. Developers, testers and operations create identical environments from the same code, review every change in a pull request and avoid \"it works on my machine\" before the project even starts."
+  },
+  {
+    "id": "jenkins-in-activity-based-conceptualization-of-software-quality",
+    "toolId": "jenkins",
+    "practiceId": "activity-based-conceptualization-of-software-quality",
+    "description": "Each activity of the conceptualization (static analysis, unit tests, integration tests, acceptance tests) becomes a stage of a Jenkinsfile. The way of working stops being a diagram on a wiki: everyone sees the same stages run in the same order on every commit, and improving an activity means changing the pipeline together."
+  },
+  {
+    "id": "grafana-in-activity-based-conceptualization-of-software-quality",
+    "toolId": "grafana",
+    "practiceId": "activity-based-conceptualization-of-software-quality",
+    "description": "To track progress, a Grafana dashboard shows the result of each quality activity over time: pass rate, duration and failures. The team looks at the same numbers in its retrospectives and decides with data which activity of the way of working needs to improve."
+  },
+  {
+    "id": "datadog-in-activity-based-conceptualization-of-software-quality",
+    "toolId": "datadog",
+    "practiceId": "activity-based-conceptualization-of-software-quality",
+    "description": "Datadog CI Visibility measures every run of the quality activities: which stage is slow, which tests are flaky and how long the feedback takes. Problems in the way of working become visible to developers and testers alike, and fixing them is a shared task instead of a blame game."
+  },
+  {
+    "id": "microfocus-uft-in-simulated-certification-of-software-quality",
+    "toolId": "microfocus-uft",
+    "practiceId": "simulated-certification-of-software-quality",
+    "description": "The simulated certification test is automated with UFT as business process tests that follow the certification checklist. When the quality assurance engineer presents the certification test, the evidence comes from repeatable runs with screenshots and reports, so the team can run the same certification before every release."
+  },
+  {
+    "id": "sauce-labs-in-simulated-certification-of-software-quality",
+    "toolId": "sauce-labs",
+    "practiceId": "simulated-certification-of-software-quality",
+    "description": "Sauce Labs runs the simulated certification test on many real browsers and devices in the cloud, as an external certifier would. Results, videos and logs are shared with developers right away, so compatibility problems are fixed by the team before the real certification."
+  },
+  {
+    "id": "apache-jmeter-in-simulated-certification-of-software-quality",
+    "toolId": "apache-jmeter",
+    "practiceId": "simulated-certification-of-software-quality",
+    "description": "The non-functional part of the simulated certification (response time and throughput under load) is measured with JMeter. Its HTML report is presented with the certification test, and the same plan runs in the pipeline so performance stays a shared, continuous concern."
+  },
+  {
+    "id": "postman-in-simulated-design-of-the-software-system",
+    "toolId": "postman",
+    "practiceId": "simulated-design-of-the-software-system",
+    "description": "While specifying the functionality of the software system, each use case becomes requests in a Postman collection with a mock server. Front-end and back-end developers try the design before writing code, and the collection documents the textual specification of the use cases for everyone."
+  },
+  {
+    "id": "soapui-in-simulated-design-of-the-software-system",
+    "toolId": "soapui",
+    "practiceId": "simulated-design-of-the-software-system",
+    "description": "SoapUI creates mock services from the interfaces described in the use cases, simulating the system that does not exist yet. Other teams integrate early against the simulated design, so misunderstandings in the requirements show up in days instead of at the end."
+  },
+  {
+    "id": "fitnesse-in-simulated-design-of-the-software-system",
+    "toolId": "fitnesse",
+    "practiceId": "simulated-design-of-the-software-system",
+    "description": "The textual specification of the use cases is written in FitNesse wiki pages with tables of examples that the software engineer fills in with the stakeholders. The same pages later run as tests, so the design, the requirements and the checks stay in one shared place."
+  },
+  {
+    "id": "selenium-in-automated-testing-of-the-software-system",
+    "toolId": "selenium",
+    "practiceId": "automated-testing-of-the-software-system",
+    "description": "Selenium WebDriver executes the automated regression tests of the user interface on real browsers, and Selenium Grid runs them in parallel. Repetitive manual testing disappears, tests run in minutes and testers spend their time on exploratory work."
+  },
+  {
+    "id": "jenkins-in-automated-testing-of-the-software-system",
+    "toolId": "jenkins",
+    "practiceId": "automated-testing-of-the-software-system",
+    "description": "Jenkins executes the automated tests on every commit and blocks the release when a test fails. Everyone gains immediate feedback on the system under test, and a broken build is the whole team's priority, not only the tester's."
+  },
+  {
+    "id": "cypress-in-automated-testing-of-the-software-system",
+    "toolId": "cypress",
+    "practiceId": "automated-testing-of-the-software-system",
+    "description": "Developers run Cypress tests in their own browser with time-travel debugging and then the same specs run in the pipeline. The screenshots and videos of each run let stakeholders see what the system under test does, which supports the Stakeholder representation competency."
+  },
+  {
+    "id": "junit-in-test-driven-development-of-the-software-system",
+    "toolId": "junit",
+    "practiceId": "test-driven-development-of-the-software-system",
+    "description": "With JUnit the developer writes a failing test, writes the source code that passes it and refactors with the tests green. Tests and source code grow together, and the test suite becomes documentation that any team member can trust before changing the code."
+  },
+  {
+    "id": "jest-in-test-driven-development-of-the-software-system",
+    "toolId": "jest",
+    "practiceId": "test-driven-development-of-the-software-system",
+    "description": "Jest in watch mode reruns the affected tests every time a file is saved, so the red-green-refactor cycle takes seconds. Short feedback loops reduce development time and make refactoring a normal part of the daily work."
+  },
+  {
+    "id": "github-actions-in-test-driven-development-of-the-software-system",
+    "toolId": "github-actions",
+    "practiceId": "test-driven-development-of-the-software-system",
+    "description": "GitHub Actions runs the whole test suite on every push and pull request. A refactor that breaks someone else's test is caught before merging, so the team keeps the main branch green and owns the code collectively."
+  },
+  {
+    "id": "fitnesse-in-acceptance-test-driven-development-of-the-software-system",
+    "toolId": "fitnesse",
+    "practiceId": "acceptance-test-driven-development-of-the-software-system",
+    "description": "To define the acceptance criteria, the quality assurance engineer, the developers and the customer write FitNesse decision tables with concrete examples. The tables run against the source code, so done means that the customer's examples pass, not that the code compiles."
+  },
+  {
+    "id": "playwright-in-acceptance-test-driven-development-of-the-software-system",
+    "toolId": "playwright",
+    "practiceId": "acceptance-test-driven-development-of-the-software-system",
+    "description": "Playwright automates the acceptance tests end to end in Chromium, Firefox and WebKit. Its traces show exactly where a criterion fails, so testers and developers fix it together instead of passing tickets back and forth."
+  },
+  {
+    "id": "gitlab-ci-cd-in-acceptance-test-driven-development-of-the-software-system",
+    "toolId": "gitlab-ci-cd",
+    "practiceId": "acceptance-test-driven-development-of-the-software-system",
+    "description": "GitLab CI/CD controls the continuous integration and deployment of the acceptance tests: they run on every merge request and gate the deployment to the staging environment. The acceptance criteria become part of the delivery pipeline that the whole team owns."
+  },
+  {
+    "id": "cucumber-in-behavior-driven-development-of-the-software-system",
+    "toolId": "cucumber",
+    "practiceId": "behavior-driven-development-of-the-software-system",
+    "description": "The business analyst and the developers define scenarios in Gherkin (Given, When, Then) and automate the acceptance criteria with Cucumber step definitions. The feature files are living documentation that business and technical people read and refine together."
+  },
+  {
+    "id": "jasmine-in-behavior-driven-development-of-the-software-system",
+    "toolId": "jasmine",
+    "practiceId": "behavior-driven-development-of-the-software-system",
+    "description": "Jasmine expresses the expected behavior of each JavaScript component with describe and it blocks written in the language of the scenarios. When the scenarios are refined, the specs change with them and the team keeps one shared vocabulary from the story to the code."
+  },
+  {
+    "id": "circleci-in-behavior-driven-development-of-the-software-system",
+    "toolId": "circleci",
+    "practiceId": "behavior-driven-development-of-the-software-system",
+    "description": "CircleCI runs the automated scenarios on every push and publishes which behaviors pass. Business analysts see the status of each scenario without asking developers, and a failing behavior is visible to everyone at once."
+  },
+  {
+    "id": "tricentis-tosca-in-model-based-development-of-software-systems",
+    "toolId": "tricentis-tosca",
+    "practiceId": "model-based-development-of-software-systems",
+    "description": "Tosca supports the generation phase: the software development engineer in test creates and validates test models of the system, defines the coverage criteria, generates test cases and test data, and minimizes the test suite. When the system changes, the model changes once and the tests follow."
+  },
+  {
+    "id": "testng-in-model-based-development-of-software-systems",
+    "toolId": "testng",
+    "practiceId": "model-based-development-of-software-systems",
+    "description": "In the execution and evaluation phases, TestNG data providers feed the generated test data into the test cases and run them in parallel. Its reports give the test verdict of each case and trace it to the requirement in the model, so the whole team sees what is covered."
+  },
+  {
+    "id": "docker-in-model-based-development-of-software-systems",
+    "toolId": "docker",
+    "practiceId": "model-based-development-of-software-systems",
+    "description": "Each run of the generated test cases uses the system under test in Docker containers built from the same image. Every execution starts from a known state, so a failing verdict points to a real defect and not to a different environment."
+  },
+  {
+    "id": "nagios-in-continuous-monitoring-of-the-endeavor",
+    "toolId": "nagios",
+    "practiceId": "continuous-monitoring-of-the-endeavor",
+    "description": "Nagios checks the infrastructure automatically: hosts, services and disk space are verified every few minutes. Developers and operations share the same view of the health of the system and find problems before users do."
+  },
+  {
+    "id": "prometheus-in-continuous-monitoring-of-the-endeavor",
+    "toolId": "prometheus",
+    "practiceId": "continuous-monitoring-of-the-endeavor",
+    "description": "Prometheus collects the performance metrics of the services, and the team analyzes them with PromQL to see trends in latency, errors and load. Decisions about capacity and improvements are based on measurements that everyone can query."
+  },
+  {
+    "id": "moogsoft-in-continuous-monitoring-of-the-endeavor",
+    "toolId": "moogsoft",
+    "practiceId": "continuous-monitoring-of-the-endeavor",
+    "description": "Moogsoft correlates the events of the monitoring tools with AIOps and triggers one instant alert per real incident instead of hundreds of notifications. The on-call DevOps engineer reacts faster and the team avoids alert fatigue."
+  },
+  {
+    "id": "splunk-in-continuous-monitoring-of-the-endeavor",
+    "toolId": "splunk",
+    "practiceId": "continuous-monitoring-of-the-endeavor",
+    "description": "Splunk centralizes logs and generates the audit logs of deployments, configuration changes and access. After an incident, the team reviews what happened in a blameless postmortem using the same searchable record."
+  }
+]
