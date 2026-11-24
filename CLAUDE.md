@@ -71,6 +71,9 @@ assets/logos/            logos de las herramientas iniciales (04)
 assets/essence/          diagramas de las prácticas iniciales (05)
 docs/                    esquema (.drawio y .svg), periodic-table.pdf, style-guide.html y notas de los datos
 README.md                cómo abrir y usar el proyecto (12)
+.gitignore               archivos que no van al repositorio
+.github/workflows/ci.yml          CI en GitHub Actions: HTML, sintaxis de js/ y datos
+.github/scripts/validate-data.js  validación de data/ que corre el CI
 ```
 
 ## Datos
@@ -194,6 +197,8 @@ DB.PRICING_MODELS = [
 ## Git
 
 Git Flow: `main` y `develop` son permanentes. Cada tarjeta se trabaja en una rama `feature/<nombre>` creada desde `develop`, sin el número de la tarjeta en el nombre; la entrega va en `release/*` y las correcciones urgentes en `hotfix/*`. Cada prompt indica su rama.
+
+CI: cada push y pull request a `main` y `develop` corre `.github/workflows/ci.yml` (htmlhint, `node --check` de `js/*.js` y `node .github/scripts/validate-data.js`). Antes de hacer commit de cambios en `data/` o `assets/`, corre `node .github/scripts/validate-data.js` y corrige lo que marque.
 
 ## Cómo trabajar una tarjeta
 
