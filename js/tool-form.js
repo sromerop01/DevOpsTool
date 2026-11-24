@@ -171,6 +171,52 @@
       });
   }
 
+  // ---------- Validation on blur, without moving what is being clicked ----------
+
+  // Validating a field when it loses the focus can show or hide its error, which moves every field
+  // below it. When the focus leaves because the mouse was pressed on another control, that control
+  // would move under the pointer: a click on a button would end outside it and be lost, and the menu
+  // of a select (or the file picker) would open while the field jumps. So, while a mouse button is
+  // down, the blur validation waits:
+  //   - for a select or a file input, until a value is chosen or the user leaves it;
+  //   - for anything else, until the click is over.
+  var pointerDown = false;
+  var afterClick = [];
+
+  document.addEventListener('pointerdown', function () { pointerDown = true; }, true);
+  ['pointerup', 'pointercancel'].forEach(function (type) {
+    document.addEventListener(type, function () {
+      pointerDown = false;
+      // After the click event, which the browser dispatches right after pointerup.
+      setTimeout(function () {
+        var checks = afterClick;
+        afterClick = [];
+        checks.forEach(function (check) { check(); });
+      }, 0);
+    }, true);
+  });
+
+  function opensPicker(element) {
+    return !!element && (element.tagName === 'SELECT' || (element.tagName === 'INPUT' && element.type === 'file'));
+  }
+
+  // Runs check once, when target is done (value chosen, picker closed, focus gone or a key pressed).
+  function whenDone(target, check) {
+    var types = ['change', 'cancel', 'blur', 'keydown'];
+    function run() {
+      types.forEach(function (type) { target.removeEventListener(type, run); });
+      check();
+    }
+    types.forEach(function (type) { target.addEventListener(type, run); });
+  }
+
+  function validateOnBlur(event, check) {
+    if (!document.hasFocus()) return; // the whole window lost the focus, for example a file picker
+    if (!pointerDown) check();
+    else if (opensPicker(event.relatedTarget)) whenDone(event.relatedTarget, check);
+    else afterClick.push(check);
+  }
+
   // ---------- The form ----------
 
   function mount(container, options) {
@@ -276,12 +322,19 @@
       return !message;
     }
 
+    // Blur checks that wait for a click (validateOnBlur) belong to one round; sending or
+    // clearing the form starts a new round, so a late check never marks a field it no longer applies to.
+    var checksRound = 0;
+
     rules.forEach(function (rule) {
       var control = rule.field.control;
       // Validate when leaving the field, but not when the whole window loses focus
       // (for example, while the file picker of the logo is open).
-      control.addEventListener('blur', function () {
-        if (document.hasFocus()) validate(rule);
+      control.addEventListener('blur', function (event) {
+        var round = checksRound;
+        validateOnBlur(event, function () {
+          if (round === checksRound) validate(rule); // skipped if the form was sent or cleared meanwhile
+        });
       });
       // Once a field shows an error, check it again as it changes so the error goes away when fixed.
       var recheck = function () {
@@ -347,6 +400,7 @@
     }
 
     function reset() {
+      checksRound++;
       form.reset();
       logoRequest++;
       newLogo = null;
@@ -357,6 +411,7 @@
 
     form.addEventListener('submit', function (event) {
       event.preventDefault();
+      checksRound++; // sending checks every field, so a blur check still waiting is no longer needed
       storageAlert.textContent = '';
       // A logo that is still being processed must finish before the form is checked.
       logoJob.then(function () {
