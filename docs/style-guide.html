@@ -137,11 +137,19 @@
 
   <section aria-labelledby="table-title">
     <h2 id="table-title">Record table</h2>
+    <!-- method="dialog" keeps this example from submitting, since the guide has no JavaScript. -->
+    <form class="form filter" method="dialog" role="search">
+      <div class="field">
+        <label class="field__label" for="filter">Filter by name</label>
+        <input class="input" id="filter" type="search" autocomplete="off">
+      </div>
+    </form>
     <div class="table-scroll">
       <table class="record-table">
         <caption class="visually-hidden">Registered DevOps tools</caption>
         <thead>
           <tr>
+            <th scope="col">Logo</th>
             <th scope="col">Name</th>
             <th scope="col">Category</th>
             <th scope="col">Pricing model</th>
@@ -151,18 +159,21 @@
         <tbody>
           <!-- The pages set --badge-color from the category's color in DB.getAll("categories"). -->
           <tr>
+            <td><img class="record-table__logo" src="../assets/logos/selenium.svg" alt="" width="32" height="32"></td>
             <th scope="row">Selenium</th>
             <td><span class="category-badge" style="--badge-color: #A57CF0">Testing</span></td>
             <td>Open source</td>
             <td><button class="btn btn--secondary" type="button" aria-label="Edit Selenium">Edit</button></td>
           </tr>
           <tr>
+            <td><img class="record-table__logo" src="../assets/logos/jenkins.svg" alt="" width="32" height="32"></td>
             <th scope="row">Jenkins</th>
             <td><span class="category-badge" style="--badge-color: #455A64">Continuous Integration</span></td>
             <td>Open source</td>
             <td><button class="btn btn--secondary" type="button" aria-label="Edit Jenkins">Edit</button></td>
           </tr>
           <tr>
+            <td><img class="record-table__logo" src="../assets/logos/docker.svg" alt="" width="32" height="32"></td>
             <th scope="row">Docker</th>
             <td><span class="category-badge" style="--badge-color: #263238">Containers</span></td>
             <td>Freemium</td>

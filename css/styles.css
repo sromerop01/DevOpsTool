@@ -256,6 +256,11 @@ textarea.input {
   object-fit: contain;
 }
 
+/* Filter above a .record-table, separated from its header. */
+.filter {
+  margin: 0 0 24px;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -410,6 +415,14 @@ textarea.input {
 
 .record-table td:last-child {
   text-align: right;
+}
+
+/* Logo of a row: 32 × 32 px, whole and centered whatever its proportion. */
+.record-table__logo {
+  display: block;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
 
 /*
