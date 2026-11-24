@@ -261,6 +261,21 @@ textarea.input {
   margin: 0 0 24px;
 }
 
+/* Below a select: the logo (48 × 48 px) or the diagram thumbnail (160 px wide) of the chosen record. */
+.choice-logo {
+  display: block;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.choice-thumbnail {
+  display: block;
+  width: 160px;
+  height: auto;
+  border: 1px solid var(--attribute);
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
