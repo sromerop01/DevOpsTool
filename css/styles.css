@@ -440,6 +440,15 @@ textarea.input {
   object-fit: contain;
 }
 
+/* Essence diagram of a row: a 64 px wide thumbnail that keeps its proportion. */
+.record-table__diagram {
+  display: block;
+  width: 64px;
+  max-width: none;
+  height: auto;
+  border: 1px solid var(--attribute);
+}
+
 /*
  * Set --badge-color on the element to the category's color, for example from DB.getAll("categories").
  * inline-flex keeps the dot beside the name when a long name wraps in a narrow column.
