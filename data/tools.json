@@ -12,24 +12,32 @@
     "name": "Amazon CloudWatch",
     "logo": "assets/logos/amazon-cloudwatch.svg",
     "description": "AWS service that collects metrics, logs and events from AWS resources and applications, and raises alarms on them.",
-    "pricingModel": "PA",
-    "categoryId": "observability"
+    "pricingModel": "FM",
+    "categoryId": "analytics"
   },
   {
     "id": "amazon-ecs",
     "name": "Amazon ECS",
     "logo": "assets/logos/amazon-ecs.svg",
     "description": "AWS service that runs and scales Docker containers on managed clusters.",
-    "pricingModel": "EN",
-    "categoryId": "container-orchestration"
+    "pricingModel": "PA",
+    "categoryId": "containers"
   },
   {
     "id": "amazon-web-services",
     "name": "Amazon Web Services",
     "logo": "assets/logos/amazon-web-services.svg",
     "description": "Amazon's cloud platform with compute, storage, database, networking and deployment services billed by usage.",
-    "pricingModel": "PA",
+    "pricingModel": "FM",
     "categoryId": "cloud"
+  },
+  {
+    "id": "ansible",
+    "name": "Ansible",
+    "logo": "assets/logos/ansible.svg",
+    "description": "Agentless automation tool that configures systems and deploys applications with YAML playbooks over SSH.",
+    "pricingModel": "OS",
+    "categoryId": "configuration"
   },
   {
     "id": "apache-jmeter",
@@ -37,7 +45,7 @@
     "logo": "assets/logos/apache-jmeter.svg",
     "description": "Open-source Java tool that load tests and measures the performance of web applications, APIs and other services.",
     "pricingModel": "FR",
-    "categoryId": "testing-automation"
+    "categoryId": "testing"
   },
   {
     "id": "apache-maven",
@@ -45,7 +53,7 @@
     "logo": "assets/logos/apache-maven.svg",
     "description": "Build tool for Java projects that manages dependencies and builds and publishes artifacts from a project model (POM).",
     "pricingModel": "OS",
-    "categoryId": "artifact-management"
+    "categoryId": "continuous-integration"
   },
   {
     "id": "apache-mesos",
@@ -53,7 +61,7 @@
     "logo": "assets/logos/apache-mesos.svg",
     "description": "Cluster manager that pools CPU and memory across machines to run containers and distributed applications. Retired to the Apache Attic in 2021.",
     "pricingModel": "OS",
-    "categoryId": "container-orchestration"
+    "categoryId": "containers"
   },
   {
     "id": "apache-openwhisk",
@@ -68,8 +76,16 @@
     "name": "AppDynamics",
     "logo": "assets/logos/appdynamics.png",
     "description": "Application performance monitoring tool from Cisco that traces transactions and links performance to business metrics.",
-    "pricingModel": "EN",
-    "categoryId": "observability"
+    "pricingModel": "FM",
+    "categoryId": "analytics"
+  },
+  {
+    "id": "aws-cloudformation",
+    "name": "AWS CloudFormation",
+    "logo": "assets/logos/aws-cloudformation.svg",
+    "description": "AWS service that provisions and manages cloud resources from JSON or YAML templates.",
+    "pricingModel": "FR",
+    "categoryId": "configuration"
   },
   {
     "id": "aws-codebuild",
@@ -77,7 +93,7 @@
     "logo": "assets/logos/aws-codebuild.svg",
     "description": "AWS managed build service that compiles code, runs tests and produces artifacts, billed per build minute.",
     "pricingModel": "PA",
-    "categoryId": "ci-cd-orchestration"
+    "categoryId": "continuous-integration"
   },
   {
     "id": "aws-lambda",
@@ -100,8 +116,8 @@
     "name": "Azure Kubernetes Service (AKS)",
     "logo": "assets/logos/azure-kubernetes-service.svg",
     "description": "Microsoft Azure managed Kubernetes service that handles cluster operations such as upgrades and scaling.",
-    "pricingModel": "EN",
-    "categoryId": "container-orchestration"
+    "pricingModel": "PA",
+    "categoryId": "containers"
   },
   {
     "id": "bamboo",
@@ -109,7 +125,7 @@
     "logo": "assets/logos/bamboo.svg",
     "description": "Atlassian CI/CD server that builds, tests and deploys code, integrated with Jira and Bitbucket.",
     "pricingModel": "PA",
-    "categoryId": "ci-cd-orchestration"
+    "categoryId": "continuous-integration"
   },
   {
     "id": "bitbucket-pipelines",
@@ -117,7 +133,7 @@
     "logo": "assets/logos/bitbucket-pipelines.svg",
     "description": "CI/CD service built into Bitbucket Cloud, configured with a YAML file in the repository.",
     "pricingModel": "FM",
-    "categoryId": "ci-cd-orchestration"
+    "categoryId": "continuous-integration"
   },
   {
     "id": "bugsnag",
@@ -125,7 +141,23 @@
     "logo": "assets/logos/bugsnag.svg",
     "description": "Error monitoring tool that captures crashes and exceptions in web and mobile apps and reports their impact on users.",
     "pricingModel": "FM",
-    "categoryId": "observability"
+    "categoryId": "monitoring"
+  },
+  {
+    "id": "cfengine",
+    "name": "CFEngine",
+    "logo": "assets/logos/cfengine.svg",
+    "description": "Configuration management system that keeps servers in a desired state using lightweight autonomous agents.",
+    "pricingModel": "OS",
+    "categoryId": "configuration"
+  },
+  {
+    "id": "chef",
+    "name": "Chef",
+    "logo": "assets/logos/chef.svg",
+    "description": "Infrastructure automation tool that configures servers with code written as Ruby-based recipes and cookbooks.",
+    "pricingModel": "EN",
+    "categoryId": "configuration"
   },
   {
     "id": "circleci",
@@ -133,7 +165,7 @@
     "logo": "assets/logos/circleci.svg",
     "description": "Cloud CI/CD platform that runs build, test and deploy pipelines defined in a YAML file.",
     "pricingModel": "FM",
-    "categoryId": "ci-cd-orchestration"
+    "categoryId": "continuous-integration"
   },
   {
     "id": "cloud-foundry",
@@ -148,24 +180,24 @@
     "name": "Codefresh",
     "logo": "assets/logos/codefresh.svg",
     "description": "CI/CD platform built for containers and Kubernetes, with GitOps deployments based on Argo CD.",
-    "pricingModel": "EN",
-    "categoryId": "ci-cd-orchestration"
+    "pricingModel": "FM",
+    "categoryId": "containers"
   },
   {
     "id": "codeship",
     "name": "CodeShip",
     "logo": "assets/logos/codeship.svg",
     "description": "Hosted CI/CD service from CloudBees that builds, tests and deploys code. CloudBees has announced its retirement.",
-    "pricingModel": "PA",
-    "categoryId": "ci-cd-orchestration"
+    "pricingModel": "FM",
+    "categoryId": "continuous-integration"
   },
   {
     "id": "cucumber",
     "name": "Cucumber",
     "logo": "assets/logos/cucumber.svg",
     "description": "Behavior-driven development tool that runs tests written in plain language (Gherkin) as automated checks.",
-    "pricingModel": "EN",
-    "categoryId": "testing-automation"
+    "pricingModel": "FM",
+    "categoryId": "testing"
   },
   {
     "id": "cypress",
@@ -173,7 +205,7 @@
     "logo": "assets/logos/cypress.svg",
     "description": "JavaScript framework for end-to-end and component tests of web apps, run in the browser.",
     "pricingModel": "OS",
-    "categoryId": "testing-automation"
+    "categoryId": "testing"
   },
   {
     "id": "datadog",
@@ -181,7 +213,7 @@
     "logo": "assets/logos/datadog.svg",
     "description": "SaaS platform that monitors infrastructure, applications and logs, with dashboards and alerts.",
     "pricingModel": "EN",
-    "categoryId": "observability"
+    "categoryId": "analytics"
   },
   {
     "id": "docker",
@@ -189,7 +221,7 @@
     "logo": "assets/logos/docker.svg",
     "description": "Platform that packages applications and their dependencies into containers that run the same on any host.",
     "pricingModel": "OS",
-    "categoryId": "container-orchestration"
+    "categoryId": "containers"
   },
   {
     "id": "docker-enterprise",
@@ -197,23 +229,23 @@
     "logo": "assets/logos/docker-enterprise.svg",
     "description": "Commercial Docker container platform with cluster management and security features. Sold to Mirantis in 2019.",
     "pricingModel": "EN",
-    "categoryId": "container-orchestration"
+    "categoryId": "containers"
   },
   {
     "id": "dynatrace",
     "name": "Dynatrace",
     "logo": "assets/logos/dynatrace.svg",
     "description": "Platform that monitors applications and infrastructure and detects the cause of problems automatically.",
-    "pricingModel": "EN",
-    "categoryId": "observability"
+    "pricingModel": "FM",
+    "categoryId": "analytics"
   },
   {
     "id": "elasticsearch",
     "name": "Elasticsearch",
     "logo": "assets/logos/elasticsearch.svg",
     "description": "Distributed search and analytics engine that stores and queries logs and other data in near real time.",
-    "pricingModel": "OS",
-    "categoryId": "observability"
+    "pricingModel": "EN",
+    "categoryId": "analytics"
   },
   {
     "id": "fitnesse",
@@ -221,7 +253,7 @@
     "logo": "assets/logos/fitnesse.png",
     "description": "Wiki-based acceptance testing tool where teams write tests as tables that run against the application.",
     "pricingModel": "OS",
-    "categoryId": "testing-automation"
+    "categoryId": "testing"
   },
   {
     "id": "fluentd",
@@ -229,15 +261,7 @@
     "logo": "assets/logos/fluentd.svg",
     "description": "Open-source data collector that gathers logs from many sources and routes them to storage or analysis tools.",
     "pricingModel": "OS",
-    "categoryId": "observability"
-  },
-  {
-    "id": "force-com",
-    "name": "Force.com",
-    "logo": "assets/logos/force-com.svg",
-    "description": "Salesforce platform for building and running custom business applications in the cloud. Now part of the Salesforce Platform.",
-    "pricingModel": "PA",
-    "categoryId": "cloud"
+    "categoryId": "aiops"
   },
   {
     "id": "gatling",
@@ -245,15 +269,15 @@
     "logo": "assets/logos/gatling.svg",
     "description": "Load testing tool that defines simulations as code and reports response times and throughput.",
     "pricingModel": "OS",
-    "categoryId": "testing-automation"
+    "categoryId": "testing"
   },
   {
     "id": "github-actions",
     "name": "GitHub Actions",
     "logo": "assets/logos/github-actions.svg",
     "description": "CI/CD service built into GitHub that runs workflows defined in YAML files when repository events occur.",
-    "pricingModel": "EN",
-    "categoryId": "ci-cd-orchestration"
+    "pricingModel": "FM",
+    "categoryId": "continuous-integration"
   },
   {
     "id": "gitlab-ci-cd",
@@ -261,14 +285,14 @@
     "logo": "assets/logos/gitlab-ci-cd.svg",
     "description": "CI/CD feature of GitLab that runs pipelines defined in a .gitlab-ci.yml file in the repository.",
     "pricingModel": "OS",
-    "categoryId": "ci-cd-orchestration"
+    "categoryId": "continuous-integration"
   },
   {
     "id": "google-cloud-platform",
     "name": "Google Cloud Platform",
     "logo": "assets/logos/google-cloud-platform.svg",
     "description": "Google's cloud platform with compute, storage, data and machine learning services billed by usage.",
-    "pricingModel": "PA",
+    "pricingModel": "EN",
     "categoryId": "cloud"
   },
   {
@@ -276,8 +300,8 @@
     "name": "Google Kubernetes Engine (GKE)",
     "logo": "assets/logos/google-kubernetes-engine.svg",
     "description": "Google Cloud managed Kubernetes service that runs and scales containerized applications.",
-    "pricingModel": "EN",
-    "categoryId": "container-orchestration"
+    "pricingModel": "PA",
+    "categoryId": "containers"
   },
   {
     "id": "gradle",
@@ -285,15 +309,15 @@
     "logo": "assets/logos/gradle.svg",
     "description": "Build automation tool that compiles, tests and packages projects using scripts in Groovy or Kotlin.",
     "pricingModel": "OS",
-    "categoryId": "artifact-management"
+    "categoryId": "continuous-integration"
   },
   {
     "id": "grafana",
     "name": "Grafana",
     "logo": "assets/logos/grafana.svg",
     "description": "Tool that builds dashboards and alerts from metrics, logs and traces stored in many data sources.",
-    "pricingModel": "EN",
-    "categoryId": "observability"
+    "pricingModel": "OS",
+    "categoryId": "analytics"
   },
   {
     "id": "helm",
@@ -301,14 +325,14 @@
     "logo": "assets/logos/helm.svg",
     "description": "Package manager for Kubernetes that installs and upgrades applications described as versioned charts.",
     "pricingModel": "OS",
-    "categoryId": "deployment-automation"
+    "categoryId": "containers"
   },
   {
     "id": "ibm-cloud",
     "name": "IBM Cloud",
     "logo": "assets/logos/ibm-cloud.svg",
     "description": "IBM's cloud platform with infrastructure, platform and AI services billed by usage.",
-    "pricingModel": "PA",
+    "pricingModel": "EN",
     "categoryId": "cloud"
   },
   {
@@ -325,7 +349,7 @@
     "logo": "assets/logos/itrs.svg",
     "description": "Monitoring and analytics software (Geneos) for the health of IT infrastructure and applications in large enterprises.",
     "pricingModel": "EN",
-    "categoryId": "observability"
+    "categoryId": "aiops"
   },
   {
     "id": "jasmine",
@@ -333,7 +357,7 @@
     "logo": "assets/logos/jasmine.svg",
     "description": "Behavior-driven testing framework for JavaScript that runs without a browser or DOM.",
     "pricingModel": "OS",
-    "categoryId": "testing-automation"
+    "categoryId": "testing"
   },
   {
     "id": "jenkins",
@@ -341,7 +365,7 @@
     "logo": "assets/logos/jenkins.svg",
     "description": "Open-source automation server that builds, tests and deploys software through pipelines and plugins.",
     "pricingModel": "OS",
-    "categoryId": "ci-cd-orchestration"
+    "categoryId": "continuous-integration"
   },
   {
     "id": "jest",
@@ -349,7 +373,23 @@
     "logo": "assets/logos/jest.svg",
     "description": "JavaScript testing framework with a built-in test runner, mocks and code coverage.",
     "pricingModel": "OS",
-    "categoryId": "testing-automation"
+    "categoryId": "testing"
+  },
+  {
+    "id": "jfrog-artifactory",
+    "name": "JFrog Artifactory",
+    "logo": "assets/logos/jfrog-artifactory.svg",
+    "description": "Universal repository manager that stores and serves build artifacts, packages and container images.",
+    "pricingModel": "FM",
+    "categoryId": "configuration"
+  },
+  {
+    "id": "juju",
+    "name": "Juju",
+    "logo": "assets/logos/juju.svg",
+    "description": "Open-source orchestration engine from Canonical that deploys and operates applications through reusable charms.",
+    "pricingModel": "OS",
+    "categoryId": "configuration"
   },
   {
     "id": "junit",
@@ -357,23 +397,23 @@
     "logo": "assets/logos/junit.svg",
     "description": "Unit testing framework for Java that runs tests and reports their results.",
     "pricingModel": "FR",
-    "categoryId": "testing-automation"
+    "categoryId": "testing"
   },
   {
     "id": "karma",
     "name": "Karma",
     "logo": "assets/logos/karma.svg",
     "description": "Test runner that runs JavaScript tests in real browsers. Deprecated since 2023.",
-    "pricingModel": "OS",
-    "categoryId": "testing-automation"
+    "pricingModel": "FR",
+    "categoryId": "testing"
   },
   {
     "id": "kibana",
     "name": "Kibana",
     "logo": "assets/logos/kibana.svg",
     "description": "Web interface for exploring and visualizing data stored in Elasticsearch with charts and dashboards.",
-    "pricingModel": "EN",
-    "categoryId": "observability"
+    "pricingModel": "OS",
+    "categoryId": "analytics"
   },
   {
     "id": "kubernetes",
@@ -381,7 +421,7 @@
     "logo": "assets/logos/kubernetes.svg",
     "description": "Open-source system that deploys, scales and manages containerized applications across clusters.",
     "pricingModel": "OS",
-    "categoryId": "container-orchestration"
+    "categoryId": "containers"
   },
   {
     "id": "locust-io",
@@ -389,7 +429,7 @@
     "logo": "assets/logos/locust-io.svg",
     "description": "Load testing tool where user behavior is written in Python and run by many simulated users.",
     "pricingModel": "OS",
-    "categoryId": "testing-automation"
+    "categoryId": "testing"
   },
   {
     "id": "logstash",
@@ -397,23 +437,15 @@
     "logo": "assets/logos/logstash.svg",
     "description": "Data pipeline that collects, transforms and sends logs and events to stores such as Elasticsearch.",
     "pricingModel": "OS",
-    "categoryId": "observability"
+    "categoryId": "aiops"
   },
   {
     "id": "mabl",
     "name": "mabl",
     "logo": "assets/logos/mabl.svg",
     "description": "Low-code platform that creates and runs automated end-to-end tests and uses AI to keep them up to date.",
-    "pricingModel": "PA",
-    "categoryId": "testing-automation"
-  },
-  {
-    "id": "mailjet",
-    "name": "Mailjet",
-    "logo": "assets/logos/mailjet.png",
-    "description": "Cloud service for sending transactional and marketing emails through an API or SMTP.",
-    "pricingModel": "FM",
-    "categoryId": "cloud"
+    "pricingModel": "EN",
+    "categoryId": "testing"
   },
   {
     "id": "microfocus-uft",
@@ -421,7 +453,7 @@
     "logo": "assets/logos/microfocus-uft.svg",
     "description": "Functional test automation tool for desktop, web and mobile applications. Now owned by OpenText.",
     "pricingModel": "EN",
-    "categoryId": "testing-automation"
+    "categoryId": "testing"
   },
   {
     "id": "microsoft-azure",
@@ -437,15 +469,15 @@
     "logo": "assets/logos/mocha.svg",
     "description": "JavaScript test framework that runs in Node.js and browsers, with support for asynchronous tests.",
     "pricingModel": "OS",
-    "categoryId": "testing-automation"
+    "categoryId": "testing"
   },
   {
     "id": "moogsoft",
     "name": "Moogsoft",
     "logo": "assets/logos/moogsoft.svg",
     "description": "AIOps platform that groups related alerts into incidents to reduce noise. Acquired by Dell in 2023.",
-    "pricingModel": "EN",
-    "categoryId": "aiops-event-correlation"
+    "pricingModel": "PA",
+    "categoryId": "aiops"
   },
   {
     "id": "nagios",
@@ -453,15 +485,15 @@
     "logo": "assets/logos/nagios.svg",
     "description": "Monitoring system that checks hosts, services and networks and sends alerts when they fail.",
     "pricingModel": "OS",
-    "categoryId": "observability"
+    "categoryId": "monitoring"
   },
   {
     "id": "new-relic",
     "name": "New Relic",
     "logo": "assets/logos/new-relic.svg",
     "description": "Observability platform that monitors applications, infrastructure and logs in one place.",
-    "pricingModel": "EN",
-    "categoryId": "observability"
+    "pricingModel": "FM",
+    "categoryId": "analytics"
   },
   {
     "id": "newman",
@@ -469,15 +501,15 @@
     "logo": "assets/logos/newman.svg",
     "description": "Command-line runner for Postman collections, used to run API tests in CI pipelines.",
     "pricingModel": "OS",
-    "categoryId": "testing-automation"
+    "categoryId": "testing"
   },
   {
     "id": "npm",
     "name": "npm",
     "logo": "assets/logos/npm.svg",
     "description": "Package manager and registry for JavaScript that installs and publishes Node.js packages.",
-    "pricingModel": "EN",
-    "categoryId": "artifact-management"
+    "pricingModel": "OS",
+    "categoryId": "continuous-integration"
   },
   {
     "id": "openshift",
@@ -485,7 +517,7 @@
     "logo": "assets/logos/openshift.svg",
     "description": "Red Hat's Kubernetes platform that adds developer tools, built-in CI/CD and security to the base system.",
     "pricingModel": "EN",
-    "categoryId": "container-orchestration"
+    "categoryId": "cloud"
   },
   {
     "id": "openstack",
@@ -496,12 +528,28 @@
     "categoryId": "cloud"
   },
   {
+    "id": "packer",
+    "name": "Packer",
+    "logo": "assets/logos/packer.svg",
+    "description": "HashiCorp tool that builds identical machine images for several platforms from a single template.",
+    "pricingModel": "OS",
+    "categoryId": "configuration"
+  },
+  {
     "id": "perfecto",
     "name": "Perfecto",
     "logo": "assets/logos/perfecto.svg",
     "description": "Cloud testing platform that runs automated web and mobile tests on real devices and browsers.",
-    "pricingModel": "EN",
-    "categoryId": "testing-automation"
+    "pricingModel": "PA",
+    "categoryId": "testing"
+  },
+  {
+    "id": "playwright",
+    "name": "Playwright",
+    "logo": "assets/logos/playwright.svg",
+    "description": "Open-source framework from Microsoft for end-to-end testing of web apps across Chromium, Firefox and WebKit.",
+    "pricingModel": "OS",
+    "categoryId": "testing"
   },
   {
     "id": "postman",
@@ -509,7 +557,7 @@
     "logo": "assets/logos/postman.svg",
     "description": "Platform to design, test and document APIs through requests, collections and automated tests.",
     "pricingModel": "FM",
-    "categoryId": "testing-automation"
+    "categoryId": "testing"
   },
   {
     "id": "prometheus",
@@ -517,7 +565,23 @@
     "logo": "assets/logos/prometheus.svg",
     "description": "Open-source monitoring system that stores metrics as time series and queries them with PromQL.",
     "pricingModel": "OS",
-    "categoryId": "observability"
+    "categoryId": "aiops"
+  },
+  {
+    "id": "pulumi",
+    "name": "Pulumi",
+    "logo": "assets/logos/pulumi.svg",
+    "description": "Infrastructure as code platform that defines cloud resources with general-purpose languages such as TypeScript or Python.",
+    "pricingModel": "OS",
+    "categoryId": "configuration"
+  },
+  {
+    "id": "puppet",
+    "name": "Puppet",
+    "logo": "assets/logos/puppet.svg",
+    "description": "Configuration management tool that describes infrastructure state in declarative manifests and enforces it on servers.",
+    "pricingModel": "EN",
+    "categoryId": "configuration"
   },
   {
     "id": "rancher",
@@ -525,7 +589,7 @@
     "logo": "assets/logos/rancher.svg",
     "description": "Open-source platform to manage many Kubernetes clusters from a single interface.",
     "pricingModel": "OS",
-    "categoryId": "container-orchestration"
+    "categoryId": "containers"
   },
   {
     "id": "rocket",
@@ -533,7 +597,23 @@
     "logo": "assets/logos/rocket.svg",
     "description": "Container engine from CoreOS that was an alternative to Docker. The project was archived in 2020.",
     "pricingModel": "OS",
-    "categoryId": "container-orchestration"
+    "categoryId": "containers"
+  },
+  {
+    "id": "rudder",
+    "name": "Rudder",
+    "logo": "assets/logos/rudder.svg",
+    "description": "Configuration and compliance automation platform with a web interface to audit and enforce system settings.",
+    "pricingModel": "OS",
+    "categoryId": "configuration"
+  },
+  {
+    "id": "saltstack",
+    "name": "SaltStack",
+    "logo": "assets/logos/saltstack.svg",
+    "description": "Event-driven configuration management and remote execution tool for managing large fleets of servers.",
+    "pricingModel": "OS",
+    "categoryId": "configuration"
   },
   {
     "id": "sauce-labs",
@@ -541,7 +621,7 @@
     "logo": "assets/logos/sauce-labs.svg",
     "description": "Cloud testing service that runs automated web and mobile tests on many browsers and devices.",
     "pricingModel": "PA",
-    "categoryId": "testing-automation"
+    "categoryId": "testing"
   },
   {
     "id": "selenium",
@@ -549,31 +629,23 @@
     "logo": "assets/logos/selenium.svg",
     "description": "Open-source framework that automates web browsers for testing.",
     "pricingModel": "FR",
-    "categoryId": "testing-automation"
+    "categoryId": "testing"
   },
   {
     "id": "sentry",
     "name": "Sentry",
     "logo": "assets/logos/sentry.svg",
     "description": "Error tracking tool that captures exceptions and performance problems in applications and shows their context.",
-    "pricingModel": "EN",
-    "categoryId": "observability"
-  },
-  {
-    "id": "shopify",
-    "name": "Shopify",
-    "logo": "assets/logos/shopify.svg",
-    "description": "Hosted e-commerce platform for building and running online stores, with an API and apps for developers.",
-    "pricingModel": "PA",
-    "categoryId": "cloud"
+    "pricingModel": "FM",
+    "categoryId": "monitoring"
   },
   {
     "id": "soapui",
     "name": "SoapUI",
     "logo": "assets/logos/soapui.png",
     "description": "Tool for functional testing of SOAP and REST web services. The commercial version is ReadyAPI.",
-    "pricingModel": "OS",
-    "categoryId": "testing-automation"
+    "pricingModel": "FM",
+    "categoryId": "testing"
   },
   {
     "id": "splunk",
@@ -581,7 +653,7 @@
     "logo": "assets/logos/splunk.svg",
     "description": "Platform that collects, searches and analyzes machine data such as logs and metrics.",
     "pricingModel": "EN",
-    "categoryId": "observability"
+    "categoryId": "aiops"
   },
   {
     "id": "sumo-logic",
@@ -589,7 +661,7 @@
     "logo": "assets/logos/sumo-logic.svg",
     "description": "Cloud service that collects and analyzes logs and metrics for monitoring and security.",
     "pricingModel": "FM",
-    "categoryId": "observability"
+    "categoryId": "aiops"
   },
   {
     "id": "teamcity",
@@ -597,7 +669,15 @@
     "logo": "assets/logos/teamcity.svg",
     "description": "JetBrains CI/CD server that builds, tests and deploys code, with a free tier and paid plans.",
     "pricingModel": "FM",
-    "categoryId": "ci-cd-orchestration"
+    "categoryId": "continuous-integration"
+  },
+  {
+    "id": "terraform",
+    "name": "Terraform",
+    "logo": "assets/logos/terraform.svg",
+    "description": "Infrastructure as code tool from HashiCorp that provisions cloud resources from declarative configuration files.",
+    "pricingModel": "FR",
+    "categoryId": "configuration"
   },
   {
     "id": "testcafe",
@@ -605,31 +685,39 @@
     "logo": "assets/logos/testcafe.svg",
     "description": "Node.js framework for end-to-end web tests that runs without browser plugins.",
     "pricingModel": "OS",
-    "categoryId": "testing-automation"
+    "categoryId": "testing"
   },
   {
     "id": "testng",
     "name": "TestNG",
     "logo": "assets/logos/testng.svg",
     "description": "Java testing framework with annotations, parallel runs and test grouping, inspired by JUnit.",
-    "pricingModel": "OS",
-    "categoryId": "testing-automation"
+    "pricingModel": "FR",
+    "categoryId": "testing"
   },
   {
     "id": "travis-ci",
     "name": "Travis CI",
     "logo": "assets/logos/travis-ci.svg",
     "description": "Hosted CI service that builds and tests code from GitHub repositories using a .travis.yml file.",
-    "pricingModel": "EN",
-    "categoryId": "ci-cd-orchestration"
+    "pricingModel": "OS",
+    "categoryId": "continuous-integration"
   },
   {
     "id": "tricentis-tosca",
     "name": "Tricentis Tosca",
     "logo": "assets/logos/tricentis-tosca.png",
     "description": "Model-based test automation tool for enterprise applications, with little scripting.",
+    "pricingModel": "FM",
+    "categoryId": "testing"
+  },
+  {
+    "id": "udeploy",
+    "name": "uDeploy",
+    "logo": "assets/logos/udeploy.png",
+    "description": "IBM UrbanCode Deploy, a release automation tool that orchestrates application deployments across environments.",
     "pricingModel": "EN",
-    "categoryId": "testing-automation"
+    "categoryId": "configuration"
   },
   {
     "id": "vite",
@@ -637,15 +725,15 @@
     "logo": "assets/logos/vite.svg",
     "description": "Build tool for web projects with a fast development server and a production bundler.",
     "pricingModel": "OS",
-    "categoryId": "artifact-management"
+    "categoryId": "containers"
   },
   {
     "id": "vsts",
     "name": "VSTS",
     "logo": "assets/logos/vsts.svg",
     "description": "Microsoft's hosted ALM and CI/CD service. VSTS is now Azure DevOps.",
-    "pricingModel": "EN",
-    "categoryId": "ci-cd-orchestration"
+    "pricingModel": "FM",
+    "categoryId": "continuous-integration"
   },
   {
     "id": "webpack",
@@ -653,7 +741,7 @@
     "logo": "assets/logos/webpack.svg",
     "description": "Module bundler that packages JavaScript and other assets of a web app into optimized files.",
     "pricingModel": "OS",
-    "categoryId": "artifact-management"
+    "categoryId": "containers"
   },
   {
     "id": "xl-impact",
@@ -661,7 +749,7 @@
     "logo": "assets/logos/xl-impact.svg",
     "description": "Digital.ai tool that analyzes delivery data to show how releases perform. Digital.ai has replaced it with other products.",
     "pricingModel": "EN",
-    "categoryId": "ai-ml-analytics"
+    "categoryId": "analytics"
   },
   {
     "id": "yarn",
@@ -669,7 +757,7 @@
     "logo": "assets/logos/yarn.svg",
     "description": "JavaScript package manager that installs dependencies with a lockfile and a local cache.",
     "pricingModel": "OS",
-    "categoryId": "artifact-management"
+    "categoryId": "continuous-integration"
   },
   {
     "id": "zabbix",
@@ -677,7 +765,7 @@
     "logo": "assets/logos/zabbix.svg",
     "description": "Open-source tool that monitors servers, networks and applications and sends alerts.",
     "pricingModel": "OS",
-    "categoryId": "observability"
+    "categoryId": "monitoring"
   },
   {
     "id": "zenoss",
@@ -685,6 +773,6 @@
     "logo": "assets/logos/zenoss.png",
     "description": "Platform that monitors hybrid IT infrastructure and applications and correlates events.",
     "pricingModel": "EN",
-    "categoryId": "observability"
+    "categoryId": "monitoring"
   }
 ]
