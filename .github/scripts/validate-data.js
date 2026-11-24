@@ -1,4 +1,5 @@
-// Valida los JSON de data/ (la base de datos inicial): estructura, ids, referencias e imágenes.
+// Valida los JSON de data/ (la base de datos inicial): estructura, ids, referencias, imágenes
+// y que data/seed.js esté generado con su contenido actual.
 // Solo usa módulos de Node, sin dependencias. Las reglas salen de CLAUDE.md ("Datos").
 const fs = require("fs");
 const path = require("path");
@@ -116,6 +117,19 @@ usages.forEach((usage, i) => {
   pairs.add(pair);
   checkDescription(where, usage.description, 600);
 });
+
+// data/seed.js es lo que carga el sistema: debe tener exactamente lo que dicen los JSON.
+try {
+  const { renderSeed } = require("./build-seed.js");
+  const seedFile = path.join(ROOT, "data", "seed.js");
+  if (!fs.existsSync(seedFile)) {
+    fail("data/seed.js no existe. Genéralo con node .github/scripts/build-seed.js");
+  } else if (fs.readFileSync(seedFile, "utf8") !== renderSeed(ROOT)) {
+    fail("data/seed.js no coincide con los JSON de data/. Genéralo con node .github/scripts/build-seed.js");
+  }
+} catch (error) {
+  fail(`data/seed.js: ${error.message}`);
+}
 
 console.log(`categories: ${categories.length} · tools: ${tools.length} · practices: ${practices.length} · usages: ${usages.length}`);
 if (errors.length > 0) {
