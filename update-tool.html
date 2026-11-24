@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Update DevOps tool · DevOps tools and practices</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/styles.css">
+<script src="js/db.js" defer></script>
+<script src="js/tool-form.js" defer></script>
+</head>
+<body>
+<main class="page">
+  <header>
+    <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Pre-conceptual schema</a>
+    <p class="triad">
+      <span class="triad__concept">DEVOPS ENGINEER</span>
+      <span class="triad__arrow" aria-hidden="true">→</span>
+      <span class="triad__relation">UPDATES</span>
+      <span class="triad__arrow" aria-hidden="true">→</span>
+      <span class="triad__concept">DEVOPS TOOL</span>
+    </p>
+    <h1>Update a DevOps tool</h1>
+  </header>
+
+  <div id="load-error" class="notice notice--error" role="alert"></div>
+  <div id="not-found" class="notice notice--error" role="alert"></div>
+  <div id="saved" class="notice notice--success" role="status"></div>
+
+  <div id="content">
+    <section id="list" aria-label="Registered DevOps tools">
+      <div class="empty-state" id="empty" hidden>
+        <p>No tools registered yet.</p>
+        <a href="register-tool.html">Register a tool</a>
+      </div>
+
+      <div id="records" hidden>
+        <form class="form filter" id="filter-form" role="search">
+          <div class="field">
+            <label class="field__label" for="filter">Filter by name</label>
+            <input class="input" id="filter" type="search" autocomplete="off">
+          </div>
+        </form>
+        <div class="table-scroll">
+          <table class="record-table">
+            <caption class="visually-hidden">Registered DevOps tools</caption>
+            <thead>
+              <tr>
+                <th scope="col">Logo</th>
+                <th scope="col">Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">Pricing model</th>
+                <th scope="col"><span class="visually-hidden">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+        <p class="empty-state" id="no-match" hidden>No tools match this filter.</p>
+      </div>
+    </section>
+
+    <div id="tool-form" hidden></div>
+  </div>
+</main>
+<script>
+  // db.js and tool-form.js are deferred, so they run after this script: wait for them.
+  document.addEventListener('DOMContentLoaded', function () {
+    var LOAD_ERROR = 'Could not load the initial data. Open the project through a local server ' +
+      '(for example, Live Server or python3 -m http.server).';
+    var NOT_FOUND = 'This tool does not exist.';
+
+    var list = document.getElementById('list');
+    var empty = document.getElementById('empty');
+    var records = document.getElementById('records');
+    var filter = document.getElementById('filter');
+    var rows = document.getElementById('rows');
+    var noMatch = document.getElementById('no-match');
+    var formBox = document.getElementById('tool-form');
+    var saved = document.getElementById('saved');
+    var notFound = document.getElementById('not-found');
+
+    var lastEditedId = null; // its "Edit" button gets the focus when the table comes back
+
+    function pricingLabel(code) {
+      var model = DB.PRICING_MODELS.filter(function (m) { return m.code === code; })[0];
+      return model ? model.label : code;
+    }
+
+    function byName(a, b) {
+      return a.name.localeCompare(b.name, 'en', { sensitivity: 'base' }) || a.name.localeCompare(b.name);
+    }
+
+    function cell(tag, child, attributes) {
+      var node = document.createElement(tag);
+      Object.keys(attributes || {}).forEach(function (name) { node.setAttribute(name, attributes[name]); });
+      if (typeof child === 'string') node.textContent = child;
+      else if (child) node.appendChild(child);
+      return node;
+    }
+
+    // ---------- Table ----------
+
+    function renderTable() {
+      var tools = DB.getAll('tools').sort(byName);
+      var categories = {};
+      DB.getAll('categories').forEach(function (category) { categories[category.id] = category; });
+
+      empty.hidden = tools.length > 0;
+      records.hidden = tools.length === 0;
+      rows.textContent = '';
+      tools.forEach(function (tool) {
+        var logo = document.createElement('img');
+        logo.className = 'record-table__logo';
+        logo.src = tool.logo;
+        logo.alt = '';
+        logo.width = 32;
+        logo.height = 32;
+
+        var category = categories[tool.categoryId];
+        var badge = cell('span', category ? category.name : tool.categoryId, { 'class': 'category-badge' });
+        if (category) badge.style.setProperty('--badge-color', category.color);
+
+        var edit = cell('button', 'Edit', {
+          'class': 'btn btn--secondary', type: 'button', 'aria-label': 'Edit ' + tool.name, 'data-id': tool.id
+        });
+
+        var row = document.createElement('tr');
+        row.dataset.name = tool.name.toLowerCase();
+        row.appendChild(cell('td', logo));
+        row.appendChild(cell('th', tool.name, { scope: 'row' }));
+        row.appendChild(cell('td', badge));
+        row.appendChild(cell('td', pricingLabel(tool.pricingModel)));
+        row.appendChild(cell('td', edit));
+        rows.appendChild(row);
+      });
+      applyFilter();
+    }
+
+    // Case-insensitive, while typing.
+    function applyFilter() {
+      var text = filter.value.trim().toLowerCase();
+      var visible = 0;
+      Array.prototype.forEach.call(rows.rows, function (row) {
+        var match = row.dataset.name.indexOf(text) !== -1;
+        row.hidden = !match;
+        if (match) visible++;
+      });
+      noMatch.hidden = visible > 0 || rows.rows.length === 0;
+    }
+
+    filter.addEventListener('input', applyFilter);
+    document.getElementById('filter-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+    });
+
+    // ---------- Views ----------
+
+    function showTable() {
+      formBox.hidden = true;
+      formBox.textContent = '';
+      list.hidden = false;
+      renderTable();
+      var button = lastEditedId && rows.querySelector('button[data-id="' + CSS.escape(lastEditedId) + '"]');
+      if (button) {
+        // A filter that hides the edited tool would leave its button without focus.
+        if (button.closest('tr').hidden) {
+          filter.value = '';
+          applyFilter();
+        }
+        button.focus();
+      }
+    }
+
+    function showForm(tool) {
+      notFound.textContent = '';
+      saved.textContent = '';
+      lastEditedId = tool.id;
+      list.hidden = true;
+      formBox.hidden = false;
+      ToolForm.mount(formBox, {
+        mode: 'edit',
+        tool: tool,
+        onSaved: function (record) {
+          lastEditedId = record.id;
+          leaveForm();
+          saved.textContent = 'Tool updated: ' + record.name + '.';
+        },
+        onCancel: leaveForm
+      });
+      document.getElementById('name').focus();
+    }
+
+    // Shows the view for the current address: the form for ?id=<id>, the table otherwise.
+    function route() {
+      var id = new URLSearchParams(location.search).get('id');
+      if (id === null) {
+        showTable();
+        return;
+      }
+      var tool = DB.getById('tools', id);
+      if (tool) {
+        showForm(tool);
+      } else {
+        history.replaceState(null, '', location.pathname);
+        lastEditedId = null;
+        saved.textContent = '';
+        showTable();
+        notFound.textContent = NOT_FOUND;
+      }
+    }
+
+    // Back to the table without ?id=. When "Edit" added the history entry, going back removes it,
+    // so the browser's Back button doesn't reopen the form; popstate then shows the table.
+    function leaveForm() {
+      if (history.state && history.state.editing) {
+        history.back();
+      } else {
+        history.replaceState(null, '', location.pathname);
+        showTable();
+      }
+    }
+
+    rows.addEventListener('click', function (event) {
+      var button = event.target.closest('button[data-id]');
+      if (!button) return;
+      var tool = DB.getById('tools', button.dataset.id);
+      if (!tool) return;
+      history.pushState({ editing: true }, '', '?id=' + encodeURIComponent(tool.id));
+      showForm(tool);
+    });
+
+    window.addEventListener('popstate', route);
+
+    DB.ready.then(route, function () {
+      document.getElementById('content').remove();
+      document.getElementById('load-error').textContent = LOAD_ERROR;
+    });
+  });
+</script>
+</body>
+</html>
