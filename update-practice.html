@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Update practice · DevOps tools and practices</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/styles.css">
+<script src="js/db.js" defer></script>
+<script src="js/practice-form.js" defer></script>
+</head>
+<body>
+<main class="page">
+  <header>
+    <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Pre-conceptual schema</a>
+    <p class="triad">
+      <span class="triad__concept">DEVOPS ENGINEER</span>
+      <span class="triad__arrow" aria-hidden="true">→</span>
+      <span class="triad__relation">UPDATES</span>
+      <span class="triad__arrow" aria-hidden="true">→</span>
+      <span class="triad__concept">PRACTICE</span>
+    </p>
+    <h1>Update a practice</h1>
+  </header>
+
+  <div id="load-error" class="notice notice--error" role="alert"></div>
+  <div id="not-found" class="notice notice--error" role="alert"></div>
+  <div id="saved" class="notice notice--success" role="status"></div>
+
+  <div id="content">
+    <section id="list" aria-label="Registered practices">
+      <div class="empty-state" id="empty" hidden>
+        <p>No practices registered yet.</p>
+        <a href="register-practice.html">Register a practice</a>
+      </div>
+
+      <div class="table-scroll" id="records" hidden>
+        <table class="record-table">
+          <caption class="visually-hidden">Registered practices</caption>
+          <thead>
+            <tr>
+              <th scope="col">Diagram</th>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col"><span class="visually-hidden">Actions</span></th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <div id="practice-form" hidden></div>
+  </div>
+</main>
+<script>
+  // db.js and practice-form.js are deferred, so they run after this script: wait for them.
+  document.addEventListener('DOMContentLoaded', function () {
+    var LOAD_ERROR = 'Could not load the initial data. Open the project through a local server ' +
+      '(for example, Live Server or python3 -m http.server).';
+    var NOT_FOUND = 'This practice does not exist.';
+    var SHORT_DESCRIPTION = 80;
+
+    var list = document.getElementById('list');
+    var empty = document.getElementById('empty');
+    var records = document.getElementById('records');
+    var rows = document.getElementById('rows');
+    var formBox = document.getElementById('practice-form');
+    var saved = document.getElementById('saved');
+    var notFound = document.getElementById('not-found');
+
+    var lastEditedId = null; // its "Edit" button gets the focus when the table comes back
+
+    function byName(a, b) {
+      return a.name.localeCompare(b.name, 'en', { sensitivity: 'base' }) || a.name.localeCompare(b.name);
+    }
+
+    // The first 80 characters, with "…" when the description is longer.
+    function shortDescription(text) {
+      text = text || '';
+      return text.length > SHORT_DESCRIPTION ? text.slice(0, SHORT_DESCRIPTION).trimEnd() + '…' : text;
+    }
+
+    function cell(tag, child, attributes) {
+      var node = document.createElement(tag);
+      Object.keys(attributes || {}).forEach(function (name) { node.setAttribute(name, attributes[name]); });
+      if (typeof child === 'string') node.textContent = child;
+      else if (child) node.appendChild(child);
+      return node;
+    }
+
+    // ---------- Table ----------
+
+    function renderTable() {
+      var practices = DB.getAll('practices').sort(byName);
+      empty.hidden = practices.length > 0;
+      records.hidden = practices.length === 0;
+      rows.textContent = '';
+      practices.forEach(function (practice) {
+        var diagram = document.createElement('img');
+        diagram.className = 'record-table__diagram';
+        diagram.src = practice.image;
+        diagram.alt = '';
+        diagram.width = 64;
+
+        var edit = cell('button', 'Edit', {
+          'class': 'btn btn--secondary', type: 'button', 'aria-label': 'Edit ' + practice.name, 'data-id': practice.id
+        });
+
+        var row = document.createElement('tr');
+        row.appendChild(cell('td', diagram));
+        row.appendChild(cell('th', practice.name, { scope: 'row' }));
+        row.appendChild(cell('td', shortDescription(practice.description)));
+        row.appendChild(cell('td', edit));
+        rows.appendChild(row);
+      });
+    }
+
+    // ---------- Views ----------
+
+    function showTable() {
+      formBox.hidden = true;
+      formBox.textContent = '';
+      list.hidden = false;
+      renderTable();
+      var button = lastEditedId && rows.querySelector('button[data-id="' + CSS.escape(lastEditedId) + '"]');
+      if (button) button.focus();
+    }
+
+    function showForm(practice) {
+      notFound.textContent = '';
+      saved.textContent = '';
+      lastEditedId = practice.id;
+      list.hidden = true;
+      formBox.hidden = false;
+      PracticeForm.mount(formBox, {
+        mode: 'edit',
+        practice: practice,
+        onSaved: function (record) {
+          lastEditedId = record.id;
+          leaveForm();
+          saved.textContent = 'Practice updated: ' + record.name + '.';
+        },
+        onCancel: leaveForm
+      });
+      document.getElementById('name').focus();
+    }
+
+    // Shows the view for the current address: the form for ?id=<id>, the table otherwise.
+    function route() {
+      var id = new URLSearchParams(location.search).get('id');
+      if (id === null) {
+        showTable();
+        return;
+      }
+      var practice = DB.getById('practices', id);
+      if (practice) {
+        showForm(practice);
+      } else {
+        history.replaceState(null, '', location.pathname);
+        lastEditedId = null;
+        saved.textContent = '';
+        showTable();
+        notFound.textContent = NOT_FOUND;
+      }
+    }
+
+    // Back to the table without ?id=. When "Edit" added the history entry, going back removes it,
+    // so the browser's Back button doesn't reopen the form; popstate then shows the table.
+    function leaveForm() {
+      if (history.state && history.state.editing) {
+        history.back();
+      } else {
+        history.replaceState(null, '', location.pathname);
+        showTable();
+      }
+    }
+
+    rows.addEventListener('click', function (event) {
+      var button = event.target.closest('button[data-id]');
+      if (!button) return;
+      var practice = DB.getById('practices', button.dataset.id);
+      if (!practice) return;
+      history.pushState({ editing: true }, '', '?id=' + encodeURIComponent(practice.id));
+      showForm(practice);
+    });
+
+    window.addEventListener('popstate', route);
+
+    DB.ready.then(route, function () {
+      document.getElementById('content').remove();
+      document.getElementById('load-error').textContent = LOAD_ERROR;
+    });
+  });
+</script>
+</body>
+</html>
