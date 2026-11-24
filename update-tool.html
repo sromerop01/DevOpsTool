@@ -6,6 +6,7 @@
 <title>Update DevOps tool · DevOps tools and practices</title>
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="css/styles.css">
+<script src="data/seed.js" defer></script>
 <script src="js/db.js" defer></script>
 <script src="js/tool-form.js" defer></script>
 </head>
@@ -66,8 +67,8 @@
 <script>
   // db.js and tool-form.js are deferred, so they run after this script: wait for them.
   document.addEventListener('DOMContentLoaded', function () {
-    var LOAD_ERROR = 'Could not load the initial data. Open the project through a local server ' +
-      '(for example, Live Server or python3 -m http.server).';
+    var LOAD_ERROR = 'Could not load the initial data. Keep the data and js folders next to ' +
+      'index.html and open the page again.';
     var NOT_FOUND = 'This tool does not exist.';
 
     var list = document.getElementById('list');
