@@ -1,0 +1,42 @@
+name: CI · DevOps tools and practices
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Validate HTML
+        run: npx --yes htmlhint@1.9.2 "**/*.html"
+
+      - name: Validate JavaScript syntax
+        run: |
+          shopt -s nullglob
+          files=(js/*.js)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No JavaScript files in js/ yet."
+            exit 0
+          fi
+          for file in "${files[@]}"; do
+            echo "node --check $file"
+            node --check "$file"
+          done
+
+      - name: Validate data (JSON, ids, references and images)
+        run: node .github/scripts/validate-data.js
