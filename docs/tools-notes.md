@@ -106,3 +106,12 @@ Source: the course slides. Each category slide shows its tools, most of them wit
 | Juju | CD strategies (part 2), pres06 final part | 15 | Configuration | — | OS | Official site |
 | Pulumi | CD strategies (part 2), pres06 final part | 15 | Configuration | — | OS | Official site |
 | uDeploy | CD strategies (part 2), pres06 final part | 15 | Configuration | — | EN | Official site |
+
+## Logo attribution
+
+These logos are published under Creative Commons licenses that require attribution. They are used without changes.
+
+| Tool | File | Author | Source | License |
+|---|---|---|---|---|
+| Perfecto | `assets/logos/perfecto.svg` | HaileyPerforce | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Logo-perfecto-reg.svg) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| Zenoss | `assets/logos/zenoss.png` | UsernameStela | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Zenoss-logo.png) | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
