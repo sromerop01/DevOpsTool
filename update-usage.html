@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Update usage · DevOps tools and practices</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/styles.css">
+<script src="js/db.js" defer></script>
+<script src="js/usage-form.js" defer></script>
+</head>
+<body>
+<main class="page">
+  <header>
+    <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Pre-conceptual schema</a>
+    <p class="triad">
+      <span class="triad__concept">DEVOPS ENGINEER</span>
+      <span class="triad__arrow" aria-hidden="true">→</span>
+      <span class="triad__relation">UPDATES</span>
+      <span class="triad__arrow" aria-hidden="true">→</span>
+      <span class="triad__concept triad__concept--usage">USAGE</span>
+    </p>
+    <h1>Update a usage</h1>
+  </header>
+
+  <div id="load-error" class="notice notice--error" role="alert"></div>
+  <div id="not-found" class="notice notice--error" role="alert"></div>
+  <div id="saved" class="notice notice--success" role="status"></div>
+
+  <div id="content">
+    <section id="list" aria-label="Registered usages">
+      <div class="empty-state" id="empty" hidden>
+        <p>No usages registered yet.</p>
+        <a href="register-usage.html">Register a usage</a>
+      </div>
+
+      <div id="records" hidden>
+        <form class="form filter" id="filter-form" role="search">
+          <div class="field">
+            <label class="field__label" for="filter-tool">Tool</label>
+            <select class="input" id="filter-tool">
+              <option value="">All tools</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="filter-practice">Practice</label>
+            <select class="input" id="filter-practice">
+              <option value="">All practices</option>
+            </select>
+          </div>
+        </form>
+        <div class="table-scroll">
+          <table class="record-table">
+            <caption class="visually-hidden">Registered usages</caption>
+            <thead>
+              <tr>
+                <th scope="col">Tool</th>
+                <th scope="col">Practice</th>
+                <th scope="col">Description</th>
+                <th scope="col"><span class="visually-hidden">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+        <p class="empty-state" id="no-match" hidden>No usages match these filters.</p>
+      </div>
+    </section>
+
+    <div id="usage-form" hidden></div>
+  </div>
+</main>
+<script>
+  // db.js and usage-form.js are deferred, so they run after this script: wait for them.
+  document.addEventListener('DOMContentLoaded', function () {
+    var LOAD_ERROR = 'Could not load the initial data. Open the project through a local server ' +
+      '(for example, Live Server or python3 -m http.server).';
+    var NOT_FOUND = 'This usage does not exist.';
+    var SHORT_DESCRIPTION = 80;
+
+    var list = document.getElementById('list');
+    var empty = document.getElementById('empty');
+    var records = document.getElementById('records');
+    var toolFilter = document.getElementById('filter-tool');
+    var practiceFilter = document.getElementById('filter-practice');
+    var rows = document.getElementById('rows');
+    var noMatch = document.getElementById('no-match');
+    var formBox = document.getElementById('usage-form');
+    var saved = document.getElementById('saved');
+    var notFound = document.getElementById('not-found');
+
+    var lastEditedId = null; // its "Edit" button gets the focus when the table comes back
+
+    function compareNames(a, b) {
+      return a.localeCompare(b, 'en', { sensitivity: 'base' }) || a.localeCompare(b);
+    }
+
+    function byName(a, b) {
+      return compareNames(a.name, b.name);
+    }
+
+    // The first 80 characters, with "…" when the description is longer.
+    function shortDescription(text) {
+      text = text || '';
+      return text.length > SHORT_DESCRIPTION ? text.slice(0, SHORT_DESCRIPTION).trimEnd() + '…' : text;
+    }
+
+    function cell(tag, child, attributes) {
+      var node = document.createElement(tag);
+      Object.keys(attributes || {}).forEach(function (name) { node.setAttribute(name, attributes[name]); });
+      if (typeof child === 'string') node.textContent = child;
+      else if (child) node.appendChild(child);
+      return node;
+    }
+
+    function lookup(collection) {
+      var map = {};
+      DB.getAll(collection).forEach(function (record) { map[record.id] = record; });
+      return map;
+    }
+
+    // The usage with the names of its tool and practice (the ids, if a record is missing).
+    function describe(usage, tools, practices) {
+      var tool = tools[usage.toolId];
+      var practice = practices[usage.practiceId];
+      return {
+        usage: usage,
+        tool: tool,
+        toolName: tool ? tool.name : usage.toolId,
+        practiceName: practice ? practice.name : usage.practiceId
+      };
+    }
+
+    function namesOf(usage) {
+      return describe(usage, lookup('tools'), lookup('practices'));
+    }
+
+    // ---------- Filters ----------
+
+    // Rebuilt with every table render, keeping the choice when the tool or practice still exists.
+    function fillFilter(select, records) {
+      var chosen = select.value;
+      while (select.options.length > 1) select.remove(1);
+      records.slice().sort(byName).forEach(function (record) {
+        var option = document.createElement('option');
+        option.value = record.id;
+        option.textContent = record.name;
+        select.appendChild(option);
+      });
+      select.value = chosen;
+      if (select.value !== chosen) select.value = '';
+    }
+
+    // Both filters together.
+    function applyFilters() {
+      var visible = 0;
+      Array.prototype.forEach.call(rows.rows, function (row) {
+        var match = (!toolFilter.value || row.dataset.toolId === toolFilter.value) &&
+          (!practiceFilter.value || row.dataset.practiceId === practiceFilter.value);
+        row.hidden = !match;
+        if (match) visible++;
+      });
+      noMatch.hidden = visible > 0 || rows.rows.length === 0;
+    }
+
+    toolFilter.addEventListener('change', applyFilters);
+    practiceFilter.addEventListener('change', applyFilters);
+    document.getElementById('filter-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+    });
+
+    // ---------- Table ----------
+
+    function renderTable() {
+      var tools = lookup('tools');
+      var practices = lookup('practices');
+      fillFilter(toolFilter, DB.getAll('tools'));
+      fillFilter(practiceFilter, DB.getAll('practices'));
+
+      // By tool, then by practice.
+      var entries = DB.getAll('usages').map(function (usage) { return describe(usage, tools, practices); });
+      entries.sort(function (a, b) {
+        return compareNames(a.toolName, b.toolName) || compareNames(a.practiceName, b.practiceName);
+      });
+
+      empty.hidden = entries.length > 0;
+      records.hidden = entries.length === 0;
+      rows.textContent = '';
+      entries.forEach(function (entry) {
+        var toolCell = document.createElement('span');
+        toolCell.className = 'record-table__tool';
+        if (entry.tool) {
+          var logo = document.createElement('img');
+          logo.className = 'record-table__logo';
+          logo.src = entry.tool.logo;
+          logo.alt = '';
+          logo.width = 32;
+          logo.height = 32;
+          toolCell.appendChild(logo);
+        }
+        toolCell.appendChild(document.createTextNode(entry.toolName));
+
+        var edit = cell('button', 'Edit', {
+          'class': 'btn btn--secondary', type: 'button', 'data-id': entry.usage.id,
+          'aria-label': 'Edit usage of ' + entry.toolName + ' in ' + entry.practiceName
+        });
+
+        var row = document.createElement('tr');
+        row.dataset.toolId = entry.usage.toolId;
+        row.dataset.practiceId = entry.usage.practiceId;
+        row.appendChild(cell('th', toolCell, { scope: 'row' }));
+        row.appendChild(cell('td', entry.practiceName));
+        row.appendChild(cell('td', shortDescription(entry.usage.description)));
+        row.appendChild(cell('td', edit));
+        rows.appendChild(row);
+      });
+      applyFilters();
+    }
+
+    // ---------- Views ----------
+
+    function showTable() {
+      formBox.hidden = true;
+      formBox.textContent = '';
+      list.hidden = false;
+      renderTable();
+      var button = lastEditedId && rows.querySelector('button[data-id="' + CSS.escape(lastEditedId) + '"]');
+      if (button) {
+        // Filters that hide the edited usage (for example, after changing its pair) would leave
+        // its button without focus.
+        if (button.closest('tr').hidden) {
+          toolFilter.value = '';
+          practiceFilter.value = '';
+          applyFilters();
+        }
+        button.focus();
+      }
+    }
+
+    function showForm(usage) {
+      notFound.textContent = '';
+      saved.textContent = '';
+      lastEditedId = usage.id;
+      list.hidden = true;
+      formBox.hidden = false;
+      UsageForm.mount(formBox, {
+        mode: 'edit',
+        usage: usage,
+        onSaved: function (record) {
+          var names = namesOf(record);
+          lastEditedId = record.id;
+          leaveForm();
+          saved.textContent = 'Usage updated: ' + names.toolName + ' in ' + names.practiceName + '.';
+        },
+        onCancel: leaveForm
+      });
+      var first = document.getElementById('toolId');
+      if (first) first.focus();
+    }
+
+    // Shows the view for the current address: the form for ?id=<id>, the table otherwise.
+    // ?id= is also how the "Update it" link of register-usage.html opens an existing usage.
+    function route() {
+      var id = new URLSearchParams(location.search).get('id');
+      if (id === null) {
+        showTable();
+        return;
+      }
+      var usage = DB.getById('usages', id);
+      if (usage) {
+        showForm(usage);
+      } else {
+        history.replaceState(null, '', location.pathname);
+        lastEditedId = null;
+        saved.textContent = '';
+        showTable();
+        notFound.textContent = NOT_FOUND;
+      }
+    }
+
+    // Back to the table without ?id=. When "Edit" added the history entry, going back removes it,
+    // so the browser's Back button doesn't reopen the form; popstate then shows the table.
+    function leaveForm() {
+      if (history.state && history.state.editing) {
+        history.back();
+      } else {
+        history.replaceState(null, '', location.pathname);
+        showTable();
+      }
+    }
+
+    rows.addEventListener('click', function (event) {
+      var button = event.target.closest('button[data-id]');
+      if (!button) return;
+      var usage = DB.getById('usages', button.dataset.id);
+      if (!usage) return;
+      history.pushState({ editing: true }, '', '?id=' + encodeURIComponent(usage.id));
+      showForm(usage);
+    });
+
+    window.addEventListener('popstate', route);
+
+    DB.ready.then(route, function () {
+      document.getElementById('content').remove();
+      document.getElementById('load-error').textContent = LOAD_ERROR;
+    });
+  });
+</script>
+</body>
+</html>
