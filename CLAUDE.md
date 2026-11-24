@@ -6,7 +6,7 @@ Guía para cualquier asistente de IA (Claude Code, Copilot u otro) que trabaje e
 
 - Proyecto supletorio del curso **Integración y Despliegue Continuo** (Universidad Nacional de Colombia, Sede Medellín), hecho por Santiago Romero Porras y calificado por el profesor del curso. Vale el 40% de la nota y se entrega el **24 de noviembre de 2026** en MinasLap.
 - Es un sistema web en HTML5, CSS y JSON que usa el **localStorage de Chrome** como base de datos simulada. Un DevOps Engineer registra y actualiza:
-  - **herramientas DevOps**: nombre, logo, descripción, modelo de precio y categoría según la Tabla Periódica de herramientas DevOps, en su versión actual: la "DevSecOps Tools Periodic Table" de Digital.ai (`docs/periodic-table.pdf`);
+  - **herramientas DevOps**: nombre, logo, descripción, modelo de precio y categoría según la Tabla Periódica de herramientas DevOps del curso (pres05, diapositivas 9 y 10);
   - **prácticas**: nombre, descripción e imagen de su diagrama Essence;
   - **usos** de cada herramienta en cada práctica, descritos en términos de cultura DevOps.
 - Lo que exige el enunciado:
@@ -27,7 +27,7 @@ Fuente: `docs/esquema-preconceptual.drawio` y su exportación `docs/esquema-prec
   - DEVOPS TOOL HAS NAME, LOGO, PRICING MODEL, DESCRIPTION y USAGE.
   - PRACTICE HAS NAME, IMAGE, DESCRIPTION y USAGE.
   - USAGE HAS DESCRIPTION.
-- Notas: las 21 categorías (en el NAME de CATEGORY) y los 5 modelos de precio (en PRICING MODEL).
+- Notas: las 14 categorías (en el NAME de CATEGORY) y los 5 modelos de precio (en PRICING MODEL).
 - Relaciones dinámicas (óvalos amarillos punteados) y su página:
 
 | Relación | Página | Tarjeta |
@@ -63,13 +63,13 @@ js/db.js                 base de datos simulada (02)
 js/tool-form.js          formulario de herramientas (06)
 js/practice-form.js      formulario de prácticas (08)
 js/usage-form.js         formulario de usos (10)
-data/categories.json     las 21 categorías (02; la 04 las cambia a las de Digital.ai)
-data/tools.json          herramientas de las presentaciones (04)
+data/categories.json     las 14 categorías del curso (02 y 04)
+data/tools.json          las 97 herramientas de las diapositivas (04)
 data/practices.json      prácticas con sus diagramas Essence (05)
 data/usages.json         usos iniciales, vacío (02)
 assets/logos/            logos de las herramientas iniciales (04)
 assets/essence/          diagramas de las prácticas iniciales (05)
-docs/                    esquema (.drawio y .svg), periodic-table.pdf, style-guide.html y notas de los datos
+docs/                    esquema (.drawio y .svg), style-guide.html y notas de los datos
 README.md                cómo abrir y usar el proyecto (12)
 .gitignore               archivos que no van al repositorio
 .github/workflows/ci.yml          CI en GitHub Actions: HTML, sintaxis de js/ y datos
@@ -89,7 +89,7 @@ Cada concepto tiene una clave de localStorage y un JSON en `data/` con el mismo 
 
 - `categoryId` sale de CATEGORY HAS DEVOPS TOOL; `toolId` y `practiceId`, de DEVOPS TOOL HAS USAGE y PRACTICE HAS USAGE.
 - Ejemplo de herramienta:
-  `{"id": "jenkins", "name": "Jenkins", "logo": "assets/logos/jenkins.svg", "description": "Open-source automation server that builds, tests and deploys software through pipelines.", "pricingModel": "OS", "categoryId": "ci-cd-orchestration"}`
+  `{"id": "jenkins", "name": "Jenkins", "logo": "assets/logos/jenkins.svg", "description": "Open-source automation server that builds, tests and deploys software through pipelines.", "pricingModel": "OS", "categoryId": "continuous-integration"}`
 - `id`: en los datos iniciales, el nombre en minúsculas con guiones (`github-actions`). Los registros nuevos reciben de `DB.add` un prefijo (`category-`, `tool-`, `practice-` o `usage-`) + `Date.now().toString(36)` + 4 caracteres aleatorios.
 - Imágenes: en los datos iniciales, `logo` e `image` son rutas a `assets/`. Las que se suben desde un formulario se guardan en base64 dentro del registro, porque el navegador no puede crear archivos: los logos a 128 × 128 px en PNG y los diagramas Essence a máximo 1200 px de ancho en WebP (calidad 0.85). Las dos formas sirven como `src` de `<img>`.
 - Reglas que aplica cada formulario (no `db.js`):
@@ -100,35 +100,32 @@ Cada concepto tiene una clave de localStorage y un JSON en `data/` con el mismo 
 
 ### Categorías (`data/categories.json`, en este orden)
 
-Las 20 primeras son las de la DevSecOps Tools Periodic Table de Digital.ai, con el nombre y el color de su leyenda. Cloud no está en esa tabla (Digital.ai la quitó en la versión DevSecOps); se agrega para las plataformas de nube y serverless de las presentaciones, que no caben en ninguna de las 20.
+Son las 14 categorías del esquema preconceptual del profesor (pres05, diapositiva 9), en su orden.
 
 | id | name | color |
 |---|---|---|
-| ai-tools | AI Tools | #B03BF4 |
-| ai-ml-analytics | AI/ML & Analytics | #667385 |
-| aiops-event-correlation | AIOps & Event Correlation | #AE79C6 |
-| artifact-management | Artifact Management | #232E40 |
-| ci-cd-orchestration | CI/CD Orchestration | #205AB7 |
-| configuration-automation | Configuration Automation | #502B99 |
-| container-orchestration | Container Orchestration | #E8291A |
-| deployment-automation | Deployment Automation | #EEBA4F |
-| dev-portals | Dev Portals / Developer Experience | #384456 |
-| infrastructure-as-code | Infrastructure as Code | #28504A |
-| observability | Observability | #3B7269 |
-| planning-portfolio-management | Planning and Portfolio Management | #840032 |
-| release-automation | Release Automation | #B6CC3A |
-| release-orchestration | Release Orchestration | #1B998B |
-| runtime-security | Runtime Security | #F96115 |
-| secrets-management | Secrets Management | #567A32 |
-| security-testing | Security Testing | #649A3D |
-| service-management | Service Management / ITSM | #D81159 |
-| source-control-management | Source Control Management | #F46197 |
-| testing-automation | Testing Automation | #279FEA |
-| cloud | Cloud | #8D6E63 |
+| source-control-management | Source Control Management | #E8524A |
+| database-automation | Database Automation | #1E88E5 |
+| continuous-integration | Continuous Integration | #455A64 |
+| testing | Testing | #A57CF0 |
+| configuration | Configuration | #66BB6A |
+| deployment | Deployment | #A63D7B |
+| containers | Containers | #263238 |
+| release-orchestration | Release Orchestration | #26A69A |
+| cloud | Cloud | #1A4E7A |
+| aiops | AIOps | #F2C14E |
+| analytics | Analytics | #78909C |
+| monitoring | Monitoring | #D9822B |
+| security | Security | #4FC3F7 |
+| collaboration | Collaboration | #6A3FC8 |
+
+### Herramientas iniciales (`data/tools.json`)
+
+Son las 97 herramientas de las diapositivas de categoría: pres05, diapositivas 11 y 12 (Testing); pres06 parte inicial, diapositivas 7 a 11 (Monitoring, AIOps y Analytics); y pres06 parte final, diapositivas 3, 7, 8, 10, 11, 14 y 15 (Cloud, Continuous Integration, Containers y Configuration). La categoría de cada herramienta es la de la diapositiva donde aparece. Shopify, Mailjet y Force.com no se incluyen: solo son ejemplos del dibujo de SaaS/PaaS/IaaS. El detalle está en `docs/tools-notes.md`.
 
 ### Modelos de precio (lista fija en `db.js`)
 
-Códigos de la tabla de Digital.ai: Os → OS, Fr → FR, Fm → FM, Pd → PA, En → EN. Las celdas con "Un", "FrEn" o sin código no dan el modelo de precio: en esos casos se toma del sitio oficial de la herramienta.
+Las celdas de la tabla del curso traen el código del modelo de precio (OS, FR, FM, PA o EN), el mismo de `DB.PRICING_MODELS`. Las herramientas que aparecen sin celda en las diapositivas toman el modelo de precio de su sitio oficial.
 
 ```js
 DB.PRICING_MODELS = [
